@@ -29,6 +29,7 @@ module.exports = {
     'vue/multiline-html-element-content-newline': 'off',
     'vue/html-self-closing': 'off',
     'space-before-function-paren': 'off',
-    'declaration-colon-newline-after': 'off'
+    'declaration-colon-newline-after': 'off',
+    'vue/no-v-html': 'off'
   }
 }

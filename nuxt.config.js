@@ -1,6 +1,6 @@
 // used for local https security
-// import path from 'path'
-// import fs from 'fs'
+import path from 'path'
+import fs from 'fs'
 
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
@@ -15,18 +15,21 @@ export default {
   },
 
   // used for local https security
-  // server: {
-  //   https: {
-  //     key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
-  //     cert: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
-  //   }
-  // },
+  server: {
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
+    }
+  },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: [],
+  css: ['~assets/styles/globals.css'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: ['~plugins/axios.js'],
+  plugins: [
+    '~plugins/fb_login.client.js', // renders only in client side
+    '~plugins/axios.js' // renders in both client & server
+  ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,

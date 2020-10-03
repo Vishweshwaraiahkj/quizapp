@@ -2,13 +2,16 @@
   <div>
     <NavBarComponent v-if="$nuxt.$route.path !== '/login'" />
     <Nuxt />
+    <CommonFooter />
   </div>
 </template>
 <script>
-import NavBarComponent from '@/components/NavBarComponent'
+import NavBarComponent from '@/components/global/NavBarComponent'
+import CommonFooter from '@/components/global/CommonFooter'
 export default {
   components: {
-    NavBarComponent
+    NavBarComponent,
+    CommonFooter
   }
 }
 </script>

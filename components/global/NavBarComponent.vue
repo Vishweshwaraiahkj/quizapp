@@ -1,13 +1,17 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand href="/"><Logo /></b-navbar-brand>
+    <b-navbar toggleable="lg" type="light" variant="light" class="customNavBar">
+      <b-navbar-brand>
+        <nuxt-link to="/"><Logo /></nuxt-link>
+      </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item href="/todos">To-Dos</b-nav-item>
+          <b-nav-item>
+            <nuxt-link to="/todos">To-Dos</nuxt-link>
+          </b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -20,12 +24,16 @@
                   {{ getUserName }}
                 </span>
               </template>
-              <b-dropdown-item href="#">Profile</b-dropdown-item>
+              <b-dropdown-item>
+                <nuxt-link to="/user/profile">Profile</nuxt-link>
+              </b-dropdown-item>
               <b-dropdown-item @click="logout">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
           </div>
           <div v-else class="ml-2">
-            <b-btn href="/login" pill variant="outline-light">Login</b-btn>
+            <b-btn pill variant="outline-light">
+              <nuxt-link to="/login">Login</nuxt-link>
+            </b-btn>
           </div>
         </b-navbar-nav>
       </b-collapse>
@@ -58,9 +66,13 @@ export default {
   },
   methods: {
     logout() {
-      console.log('Current user data: ', this.$auth.user)
       this.$auth.logout('local')
     }
   }
 }
 </script>
+<style scoped>
+.customNavBar {
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.12);
+}
+</style>

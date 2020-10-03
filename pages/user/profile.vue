@@ -1,15 +1,15 @@
 <template>
   <b-container class="mt-3">
-    <LoginAuth />
+    <userProfile />
   </b-container>
 </template>
 
 <script>
-import LoginAuth from '@/components/user/loginAuth'
+import userProfile from '@/components/user/userProfile'
 export default {
-  name: 'Login',
+  name: 'Profile',
   components: {
-    LoginAuth
+    userProfile
   },
   validate() {
     return true
