@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import ExamDetails from '@/components/examDetails'
+import ExamDetails from '@/components/exams/ExamDetails'
 export default {
   name: 'Details',
   auth: false,

@@ -5,7 +5,11 @@
       :key="item.id"
       :class="item.newClass ? item.newClass : 'col'"
     >
-      <nuxt-link v-if="!item.noData" :to="goTo(item.realExamId)">
+      <nuxt-link
+        v-if="!item.noData"
+        :to="goTo(item.realExamId)"
+        class="black_anchor"
+      >
         <div
           :id="index"
           class="banner"

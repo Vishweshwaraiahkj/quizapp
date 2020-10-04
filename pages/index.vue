@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid="sm">
+  <b-container fluid="sm" class="home_page">
     <div v-if="isLoading" class="is_loading">Loading Data!</div>
     <b-row v-else>
       <HomeGrids :props-data="filteredData" :items-per-row="3" />
@@ -38,11 +38,7 @@ export default {
 </script>
 
 <style scoped>
-.is_loading {
-  font-size: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 80vh;
+.home_page {
+  display: block;
 }
 </style>

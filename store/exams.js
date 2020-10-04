@@ -2,7 +2,8 @@ import jsonData from '@/assets/json/data.json'
 
 export const state = () => ({
   examData: {},
-  currentExamDetails: {}
+  currentExamDetails: {},
+  examFullData: {}
 })
 
 export const mutations = {
@@ -11,6 +12,9 @@ export const mutations = {
   },
   SET_EXAM_DETAILS(state, examDetails) {
     state.currentExamDetails = examDetails
+  },
+  SET_EXAM_FULL_DATA(state, examFullData) {
+    state.examFullData = examFullData
   }
 }
 
@@ -25,5 +29,18 @@ export const actions = {
       return exam.realExamId === examId
     })[0]
     commit('SET_EXAM_DETAILS', detailsObject)
+  },
+  async getExamFullData({ commit }, examId) {
+    const examIdUpdated = examId ? 58 : 58
+    let examFullData = {}
+    try {
+      examFullData = await this.$axios.$get(
+        'http://onexam2-env.msfmxwqpbc.ap-south-1.elasticbeanstalk.com/exams/' +
+          examIdUpdated
+      )
+    } catch (error) {
+      examFullData = error
+    }
+    commit('SET_EXAM_FULL_DATA', examFullData)
   }
 }

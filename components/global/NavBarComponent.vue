@@ -9,9 +9,7 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item>
-            <nuxt-link to="/todos">To-Dos</nuxt-link>
-          </b-nav-item>
+          <nuxt-link to="/todos">To-Dos</nuxt-link>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->

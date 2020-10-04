@@ -32,8 +32,12 @@
           <div class="d-flex align-items-center">
             <span>Time</span>
             <span>{{ getExamDetails.examDuration }} Mins</span>
-            <span class="mr-auto">
-              <b-btn pill variant="primary">Start now</b-btn>
+            <span v-if="upcomingExam" class="mr-auto">
+              <b-btn pill variant="primary">
+                <nuxt-link to="/exam/started" class="white_anchor">
+                  Start now
+                </nuxt-link>
+              </b-btn>
             </span>
           </div>
           <div class="d-flex align-items-center">
@@ -57,6 +61,11 @@ export default {
     examId: {
       type: String,
       default: null
+    }
+  },
+  data() {
+    return {
+      upcomingExam: true
     }
   },
   computed: {
