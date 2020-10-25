@@ -4,15 +4,18 @@
       {{ currentQuestion.qun }}
     </h3>
     <hr />
-    <div
-      v-for="(answer, key, index) in currentQuestion.options"
-      :id="'answer_' + currentQuestion.qunId + '_' + key"
-      :key="index"
-      class="answers"
-    >
-      <label>{{ index + 1 }} ({{ key }}):</label>
-      <span>{{ answer }}</span>
-    </div>
+    <b-list-group>
+      <b-list-group-item
+        v-for="(answer, key, index) in currentQuestion.options"
+        :id="'answer_' + currentQuestion.qunId + '_' + key"
+        :key="index"
+        class="answers"
+      >
+        <b-form-radio v-model="selected" name="some-radios" :value="key">
+          <span>{{ answer }}</span>
+        </b-form-radio>
+      </b-list-group-item>
+    </b-list-group>
   </b-container>
 </template>
 
@@ -26,7 +29,8 @@ export default {
     }
   },
   data: () => ({
-    isActive: true
+    isActive: true,
+    selected: undefined
   })
 }
 </script>
@@ -44,19 +48,25 @@ export default {
   padding: 15px;
 }
 .answers {
-  justify-content: flex-start;
   border-radius: 0;
   background-color: #fff;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.18);
   border-bottom: 1px solid #e0e0e0;
   padding: 0.75rem;
-  display: flex;
-  flex: 1;
+  display: list-item;
   margin-bottom: 0.625rem;
+  list-style: upper-alpha;
+  list-style-position: inside;
+}
+.answers:hover {
+  background: cornflowerblue;
+}
+.answers .custom-radio {
+  display: inline-flex;
 }
 .answers label {
-  padding: 0 1rem 0 0;
-  margin-bottom: 0;
+  display: flex;
+  align-items: center;
 }
 .answers span {
   width: auto;
