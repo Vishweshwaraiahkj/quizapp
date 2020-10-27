@@ -2,7 +2,10 @@
   <b-container fluid="sm" class="ExamBoard">
     <div v-if="isLoading" class="is_loading">Loading Data!</div>
     <b-row v-else class="dataBox">
-      <h1>{{ examData.name }}</h1>
+      <div class="d-flex align-items-center w-100 justify-content-between">
+        <h1>{{ examData.name }}</h1>
+        <Timer v-if="deadline" :deadline="deadline" :speed="1000" />
+      </div>
       <div class="w-100">
         <SingleQuestion
           v-if="currentQuestion"
@@ -16,10 +19,12 @@
 
 <script>
 import SingleQuestion from '@/components/exams/SingleQuestion'
+import Timer from '@/components/global/Timer'
 export default {
   name: 'ExamStart',
   components: {
-    SingleQuestion
+    SingleQuestion,
+    Timer
   },
   props: {
     examId: {
@@ -53,6 +58,38 @@ export default {
       if (this.examData && this.examData.sections)
         return this.examData.sections[0].questions[i]
       return {}
+    },
+    questionsCount() {
+      return this.examData.sections &&
+        this.examData.sections[0].questions.length
+        ? this.examData.sections[0].questions.length
+        : 0
+    },
+    deadline() {
+      let deadline = 0
+      if (this.questionsCount) {
+        const dateNow = Date.now() + this.questionsCount * 60 * 1000
+        const today = new Date(dateNow)
+        const month = today.getMonth() + 1
+        const day = today.getDate()
+        const fullYear = today.getFullYear()
+        const hours = today.getHours()
+        const minutes = today.getMinutes()
+        const seconds = today.getSeconds()
+        deadline =
+          month +
+          '/' +
+          day +
+          '/' +
+          fullYear +
+          ' ' +
+          hours +
+          ':' +
+          minutes +
+          ':' +
+          seconds
+      }
+      return deadline
     }
   },
   created() {
