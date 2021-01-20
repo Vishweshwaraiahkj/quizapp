@@ -1,6 +1,8 @@
 <template>
   <div class="examStarted">
-    <ExamStart :exam-id="examId" />
+ 
+    <ExamStart :exam-id="examId"  
+    @go-to-leaderboard="goToLeaderboard(liveExamId)"/>
     <div>
       <b-modal
         v-model="openedModal"
@@ -36,14 +38,24 @@ export default {
   data: () => ({
     leavePage: false,
     openedModal: false,
+    isGoToLeaderboard:false,
     nextUrl: () => {}
   }),
   computed: {
     examId() {
+     
       const RealExamID = this.$store.state.exams.currentExamDetails.realExamId
         ? this.$store.state.exams.currentExamDetails.realExamId
         : undefined
       return Number(RealExamID)
+    },
+    liveExamId() {
+      
+      const LiveExamID = this.$store.state.exams.currentExamDetails.id
+        ? this.$store.state.exams.currentExamDetails.id
+        : undefined
+        
+      return Number(LiveExamID)
     }
   },
   beforeMount() {
@@ -53,14 +65,18 @@ export default {
     })
   },
   beforeRouteLeave(to, from, next) {
-    this.openedModal = true
-    this.nextUrl = next
+    if(this.isGoToLeaderboard){
+        this.openedModal = false
+    }else{
+          this.openedModal = true
+    }
+      this.nextUrl = next
   },
   methods: {
     preventNav(event) {
-      if (this.leavePage) return
-      event.preventDefault()
-      event.returnValue = ''
+        if (this.leavePage) return
+        event.preventDefault()
+        event.returnValue = ''
     },
     goAway() {
       // code to next route
@@ -73,6 +89,13 @@ export default {
       window.history.forward(1)
       this.leavePage = false
       this.openedModal = !this.openedModal
+    },
+
+    goToLeaderboard(liveExamId){
+      this.isGoToLeaderboard=true;
+      this.leavePage = true
+      this.$router.push("/leaderboard/"+liveExamId);
+      this.nextUrl()   
     }
   }
 }

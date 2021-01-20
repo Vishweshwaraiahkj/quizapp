@@ -2,48 +2,58 @@
   <b-container fluid="sm" class="ExamBoard">
     <div v-if="isLoading" class="is_loading">Loading Data!</div>
     <b-row v-else class="dataBox">
-      <div class="d-flex align-items-center w-100 justify-content-between">
-        <h1>{{ examData.name }}</h1>
+      <div class="d-flex align-items-right  w-100">
         <Timer v-if="deadline" :deadline="deadline" :speed="1000" />
       </div>
       <div class="w-100">
-        <SingleQuestion
-          v-if="currentQuestion"
-          :current-question="currentQuestion"
-        />
-        <div v-else><h1>You are done with exam! Thank you :)</h1></div>
+        <SingleQuestion v-if="currentQuestion" :current-question="currentQuestion" @update-ans="test"/>
+        <div v-else>
+			<h1>
+				You are done with exam! Thank you :)
+        {{saveExamResult()}}
+			</h1>
+		</div>
       </div>
     </b-row>
+<button @click="saveExamResult"> test</button>
   </b-container>
 </template>
 
 <script>
 import SingleQuestion from '@/components/exams/SingleQuestion'
 import Timer from '@/components/global/Timer'
+
 export default {
-  name: 'ExamStart',
+  name: 'ExamStart',  
+  
   components: {
     SingleQuestion,
     Timer
   },
+  
   props: {
     examId: {
       type: Number,
       default: undefined
-    }
+    },
+    
   },
+  
   data: () => ({
-    index: 0
+    index: 0,
+	ansArray:[],
+	examMarks: 0,
+    obtainedMarks: 0,
+    percentage: 0,
   }),
+  
   computed: {
     examStartTime() {
       return this.getDateTime()
     },
     examData() {
       const data = this.$store.state.exams.examFullData
-        ? this.$store.state.exams.examFullData
-        : {}
-
+        ? this.$store.state.exams.examFullData: {}
       return data.isAxiosError ? data.message : data
     },
     isLoading() {
@@ -59,6 +69,7 @@ export default {
         return this.examData.sections[0].questions[i]
       return {}
     },
+	
     questionsCount() {
       return this.examData.sections &&
         this.examData.sections[0].questions.length
@@ -92,7 +103,142 @@ export default {
       return deadline
     }
   },
+  
+  
+  methods: {
+  
+    getDateTime() {
+      const today = new Date()
+      const date =
+        today.getFullYear() +
+        '-' +
+        (today.getMonth() + 1) +
+        '-' +
+        today.getDate()
+      const time =
+        today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
+      const dateTime = date + ' ' + time
+      return { dateTime, date, time }
+    },
+	
+	createAnsObject(){
+	 var totalQutions = 10;
+      //for (var i = 0; i < this.exam.sections.length; i++) {
+      // totalQutions = totalQutions + this.exam.sections[i].totalQuestion;}
+
+      this.ansArray = Array(totalQutions).fill({
+        qunId: "",
+        ans: "",
+        status: 0,
+        time: ""
+      });
+	},
+	
+	 test(event,targetId){
+
+	  var obj={qunId: "", ans: "", status: 0,time: ""}
+            var inx=this.index;
+			var id = targetId.split("_");
+			console.log(targetId);
+			obj.qunId=id[1];
+			obj.ans=id[2];
+			obj.status=3;
+			 this.ansArray[inx]=obj;
+   },
+   
+    getAns: function(ansIndex) {
+      if (ansIndex == 0) {
+        return "opt1";
+      } else if (ansIndex == 1) {
+        return "opt2";
+      } else if (ansIndex == 2) {
+        return "opt3";
+      }
+      if (ansIndex == 3) {
+        return "opt4";
+      }
+    },
+	
+     calculateResult(exam){
+      var correctAnswer = 0;
+      var notAttempted = 0;
+      var notAnswered = 0;
+     var totalQun = this.ansArray.length;
+      var ansIndx = 0;
+      var totalMarks = 0;
+      var wrongAnswer = 0;
+      var negativeMarks = 0;
+      var examMarks = 0;
+	  
+      for (var i = 0; i < exam.sections.length; i++) {
+        var section = exam.sections[i];
+        examMarks = examMarks + section.markPerQution * section.totalQuestion;
+        for (var j = 0; j < section.totalQuestion; j++) {
+          var question = section.questions[j];
+          var ansObj = this.ansArray[ansIndx];
+          //console.log(ansObj);
+          if (ansObj.status == 0) {
+            notAttempted++;
+          } else {
+            if (ansObj.status == 1) {
+              notAnswered++;
+            } else if (ansObj.status == 3) {
+              if (ansObj.ans == this.getAns(question.ans)) {
+                correctAnswer++;
+                totalMarks = totalMarks + section.markPerQution;
+              } else {
+                wrongAnswer++;
+              }
+            }
+          }
+          ansIndx++;
+        }
+        negativeMarks =
+          negativeMarks + section.negativeMarkPerQun * wrongAnswer;
+      }
+
+      this.correctAnswer = correctAnswer;
+      this.notAttempted = notAttempted;
+      this.notAnswered = notAnswered;
+      this.totalMarks = totalMarks;
+      this.wrongAnswer = wrongAnswer;
+      this.negativeMarks = negativeMarks;
+
+      this.examMarks = examMarks;
+      this.obtainedMarks = this.totalMarks - this.negativeMarks;
+      this.percentage = (this.obtainedMarks * 100) / this.examMarks;
+	  
+	  console.log(" this.obtainedMarks:"+this.obtainedMarks+" this.percentage: "+this.percentage)
+    },
+	
+	 saveExamResult() {
+	  var exam =this.examData
+      this.calculateResult(exam);
+
+      var er = new Object();
+      er.ansObj = this.ansArray;
+      er.status = "completed";
+      er.examId = exam.examId;
+
+      er.totalMarks = this.examMarks;
+      er.obtainedMarks = this.obtainedMarks;
+      er.percentage = this.percentage;
+		this.$axios(
+        { method: 'post',url: 'http://localhost:5000/live/examresults', data: er,
+        headers: {'content-type': 'application/json','user':'1'}
+			}).then(response => {
+       
+          	this.$emit('go-to-leaderboard');
+        }) .catch(e => {
+          alert("something went worng.....exam is not saved");
+          this.$router.push("/pages/500");
+          console.log(e);
+        });
+    },
+  },
+  
   created() {
+  
     this.$store.dispatch('exams/getExamFullData', this.examId)
     const timer = () => {
       if (
@@ -113,23 +259,13 @@ export default {
         this.index = ++this.index
       }
     }
-    const myVar = setInterval(timer, 60000)
+    const myVar = setInterval(timer, 60000)	
   },
-  methods: {
-    getDateTime() {
-      const today = new Date()
-      const date =
-        today.getFullYear() +
-        '-' +
-        (today.getMonth() + 1) +
-        '-' +
-        today.getDate()
-      const time =
-        today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
-      const dateTime = date + ' ' + time
-      return { dateTime, date, time }
-    }
-  }
+  
+  mounted() {
+  this.createAnsObject();
+  },
+
 }
 </script>
 

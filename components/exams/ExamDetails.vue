@@ -1,10 +1,16 @@
 <template>
   <div>
+
+      <b-modal   ref="login-modal" id="login-modal" >
+        <b-container class="mt-3">
+                <LoginAuth end-url="exam/started" />
+              </b-container>
+      </b-modal>
+
     <div
       :id="getExamDetails.realExamId"
       class="details_banner"
-      :style="{ backgroundImage: 'url(' + getExamDetails.examBgImageLoc + ')' }"
-    >
+      :style="{ backgroundImage: 'url(' + getExamDetails.examBgImageLoc + ')' }">
       <b-container fluid="sm" class="py-3">
         <div class="d-flex align-items-center">
           <div class="company_logo">
@@ -21,6 +27,7 @@
         </div>
       </b-container>
     </div>
+
     <b-container fluid="sm" class="mt-5">
       <div class="question_brief">
         <h3>{{ getExamDetails.examName }}</h3>
@@ -33,10 +40,8 @@
             <span>Time</span>
             <span>{{ getExamDetails.examDuration }} Mins</span>
             <span v-if="upcomingExam" class="mr-auto">
-              <b-btn pill variant="primary">
-                <nuxt-link to="/exam/started" class="white_anchor">
-                  Start now
-                </nuxt-link>
+              <b-btn pill variant="primary" class="white_anchor" @click="startNow"> 
+                   Start now
               </b-btn>
             </span>
           </div>
@@ -51,6 +56,10 @@
         <div v-html="getExamDetails.descHtml"></div>
       </div>
     </b-container>
+    <div>
+  
+</div>
+             
   </div>
 </template>
 
@@ -63,14 +72,25 @@ export default {
       default: null
     }
   },
+  
   data() {
     return {
       upcomingExam: true
     }
   },
+  
   computed: {
     getExamDetails() {
       return this.$store.state.exams.currentExamDetails
+    }
+  },
+  methods: {
+    startNow() {
+     if(this.$auth.loggedIn){
+        this.$router.push('/exam/started')
+     }else{
+         this.$refs['login-modal'].show();
+     }
     }
   },
   created() {

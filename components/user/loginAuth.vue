@@ -61,9 +61,6 @@
               v-if="!this.$store.state.users.register"
               id="input-group-4"
             >
-              <b-form-checkbox v-model="form.remember">
-                Remember me
-              </b-form-checkbox>
               <p><a href="#">Forgot password?</a></p>
             </b-form-group>
           </div>
@@ -97,6 +94,12 @@
 <script>
 export default {
   name: 'LoginAuth',
+   props: {
+          endUrl: {
+              type: String,
+              default: null
+            },
+        },
   components: {},
   data() {
     return {
@@ -115,10 +118,11 @@ export default {
   methods: {
     onSubmit(evt) {
       evt.preventDefault()
-      alert(JSON.stringify(this.form))
+     
     },
     async userLogin() {
       try {
+           
         const response = await this.$auth.loginWith('local', {
           data:
             'username=' +
@@ -131,6 +135,10 @@ export default {
         this.$auth.setUserToken(response.data.access_token)
         const user = await this.$axios.$get('/users/' + response.data.userId)
         await this.setUserData(user)
+        if(this.endUrl!=null){
+              await this.$router.push('/'+this.endUrl)
+        }
+        
       } catch (err) {
         console.log('Login Error: ', err)
       }
@@ -154,6 +162,7 @@ export default {
     setUserData(user) {
       this.$auth.setUser(user)
       this.$store.commit('users/SET_USER_DATA', user)
+     
     },
     handleSdkInit({ FB, scope }) {
       this.FB = FB
@@ -188,7 +197,9 @@ export default {
     fbClick() {
       console.log('FB Btn Click')
     }
-  }
+  },
+
+ 
 }
 </script>
 <style scoped>

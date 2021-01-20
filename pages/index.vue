@@ -2,6 +2,9 @@
   <b-container fluid="sm" class="home_page">
     <div v-if="isLoading" class="is_loading">Loading Data!</div>
     <b-row v-else>
+      
+	    <Carousel/>
+     
       <HomeGrids :props-data="filteredData" :items-per-row="3" />
     </b-row>
   </b-container>
@@ -9,6 +12,7 @@
 
 <script>
 import HomeGrids from '@/components/HomeGrids'
+import Carousel from '@/components/Carousel'
 export default {
   name: 'Home',
   auth: false,

@@ -60,7 +60,7 @@ export default {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseURL: 'http://onexam2-env.msfmxwqpbc.ap-south-1.elasticbeanstalk.com/',
+    baseURL: 'http://localhost:5000/',
     retry: { retries: 3 }
   },
 

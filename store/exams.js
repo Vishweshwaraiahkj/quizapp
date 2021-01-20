@@ -30,12 +30,13 @@ export const actions = {
     })[0]
     commit('SET_EXAM_DETAILS', detailsObject)
   },
+  
   async getExamFullData({ commit }, examId) {
-    const examIdUpdated = examId ? 58 : 58
+    const examIdUpdated = examId ? 1 : 1
     let examFullData = {}
     try {
       examFullData = await this.$axios.$get(
-        'http://onexam2-env.msfmxwqpbc.ap-south-1.elasticbeanstalk.com/exams/' +
+        'http://localhost:5000/exams/' +
           examIdUpdated
       )
     } catch (error) {
