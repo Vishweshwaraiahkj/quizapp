@@ -4,9 +4,12 @@
     <b-row v-else class="dataBox">
       <div class="d-flex align-items-right  w-100">
         <Timer v-if="deadline" :deadline="deadline" :speed="1000" />
+        <b-progress-bar :value="timerCount" max="80" show-progress animated>
+        <span>{{timerCount}} Seconds Left</span>
+      </b-progress-bar>
       </div>
       <div class="w-100">
-        <SingleQuestion v-if="currentQuestion" :current-question="currentQuestion" @update-ans="test"/>
+        <SingleQuestion v-if="currentQuestion" :current-question="currentQuestion" @update-ans="updateAns"/>
         <div v-else>
 			<h1>
 				You are done with exam! Thank you :)
@@ -41,10 +44,11 @@ export default {
   
   data: () => ({
     index: 0,
-	ansArray:[],
-	examMarks: 0,
+  	ansArray:[],
+	  examMarks: 0,
     obtainedMarks: 0,
     percentage: 0,
+    timerCount: 60,
   }),
   
   computed: {
@@ -76,6 +80,7 @@ export default {
         ? this.examData.sections[0].questions.length
         : 0
     },
+    
     deadline() {
       let deadline = 0
       if (this.questionsCount) {
@@ -134,7 +139,7 @@ export default {
       });
 	},
 	
-	 test(event,targetId){
+	 updateAns(event,targetId){
 
 	  var obj={qunId: "", ans: "", status: 0,time: ""}
             var inx=this.index;
@@ -210,8 +215,21 @@ export default {
 	  
 	  console.log(" this.obtainedMarks:"+this.obtainedMarks+" this.percentage: "+this.percentage)
     },
+
+       getToken(){
+             	var token= this.$auth.getToken('local');  
+               token=token.replace("Bearer ", "");
+               return token;
+    },
 	
 	 saveExamResult() {
+     var liveExamId;
+     var uData;
+     if(process.browser){
+        liveExamId =this.$auth.$storage.getUniversal('Live_Exam_Info_Object').liveExamInfoId;
+         uData = this.$auth.$storage.getUniversal('USER_DATA');
+     }
+  
 	  var exam =this.examData
       this.calculateResult(exam);
 
@@ -219,16 +237,17 @@ export default {
       er.ansObj = this.ansArray;
       er.status = "completed";
       er.examId = exam.examId;
-
+      er.liveExamId=liveExamId;
       er.totalMarks = this.examMarks;
       er.obtainedMarks = this.obtainedMarks;
       er.percentage = this.percentage;
 		this.$axios(
-        { method: 'post',url: 'http://localhost:5000/live/examresults', data: er,
-        headers: {'content-type': 'application/json','user':'1'}
+        { method: 'post',url: '/user/live-exam-results?access_token='+this.getToken(), data: er,
+        headers: {'content-type': 'application/json','user':uData.userId}
 			}).then(response => {
-       
-          	this.$emit('go-to-leaderboard');
+              this.$auth.$storage.setUniversal('ANS_STR', this.ansArray)
+               this.$auth.$storage.setUniversal('EXAM_DATA', this.examData)
+          	   this.$emit('go-to-result-page');
         }) .catch(e => {
           alert("something went worng.....exam is not saved");
           this.$router.push("/pages/500");
@@ -240,7 +259,8 @@ export default {
   created() {
   
     this.$store.dispatch('exams/getExamFullData', this.examId)
-    const timer = () => {
+  
+  const timer = () => {
       if (
         this.index ===
         (this.examData.sections && this.examData.sections[0].questions.length)
@@ -266,6 +286,20 @@ export default {
   this.createAnsObject();
   },
 
+     watch: {
+            timerCount: {
+                handler(value) {
+                    if (value > 0) {
+                        setTimeout(() => {
+                            this.timerCount--;
+                        }, 1000);
+                    }else{
+                      this.timerCount=60;
+                    }
+                },
+                immediate: true // This ensures the watcher is triggered upon creation
+        }
+     }
 }
 </script>
 

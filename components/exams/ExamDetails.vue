@@ -1,6 +1,5 @@
 <template>
   <div>
-
       <b-modal   ref="login-modal" id="login-modal" >
         <b-container class="mt-3">
                 <LoginAuth end-url="exam/started" />
@@ -8,21 +7,21 @@
       </b-modal>
 
     <div
-      :id="getExamDetails.realExamId"
+      :id="liveExamInfo.id"
       class="details_banner"
-      :style="{ backgroundImage: 'url(' + getExamDetails.examBgImageLoc + ')' }">
+      :style="{ backgroundImage: 'url(' + liveExamInfo.examBgImageLoc + ')' }">
       <b-container fluid="sm" class="py-3">
         <div class="d-flex align-items-center">
           <div class="company_logo">
             <b-img
               class="b-lazy b-loaded"
-              :src="getExamDetails.examIconLoc"
+              :src="liveExamInfo.examIconLoc"
               alt="Exam Logo"
             />
           </div>
           <div class="banner_details">
-            <h1>{{ getExamDetails.examName }}</h1>
-            <h3>{{ getExamDetails.examDate }}</h3>
+            <h1>{{ liveExamInfo.examName }}</h1>
+            <h3></h3>
           </div>
         </div>
       </b-container>
@@ -30,15 +29,24 @@
 
     <b-container fluid="sm" class="mt-5">
       <div class="question_brief">
-        <h3>{{ getExamDetails.examName }}</h3>
+        <h3>{{ liveExamInfo.examName }}</h3>
         <div class="question_details">
           <div class="d-flex align-items-center">
+            <span>Exam Date</span>
+            <span>{{ liveExamInfo.examDate}}</span>
+             <h4>
+                <span style="width:30%;background-color:#dce4e2"> 
+                <CountDown  :date="liveExamInfo.examDate+' '+liveExamInfo.examStartTime" />
+                  </span>
+              </h4>
+          </div>
+          <div class="d-flex align-items-center">
             <span>Questions</span>
-            <span>{{ getExamDetails.totalNoOfQues }}</span>
+            <span>{{ liveExamInfo.totalNoOfQues }}</span>
           </div>
           <div class="d-flex align-items-center">
             <span>Time</span>
-            <span>{{ getExamDetails.examDuration }} Mins</span>
+            <span>{{ liveExamInfo.examDuration }} Mins</span>
             <span v-if="upcomingExam" class="mr-auto">
               <b-btn pill variant="primary" class="white_anchor" @click="startNow"> 
                    Start now
@@ -47,27 +55,27 @@
           </div>
           <div class="d-flex align-items-center">
             <span>Max Score</span>
-            <span>{{ getExamDetails.maxScore }}</span>
+            <span>{{ liveExamInfo.maxScore }}</span>
           </div>
         </div>
       </div>
       <div class="question_desc">
         <!-- eslint-disable-next-line -->
-        <div v-html="getExamDetails.descHtml"></div>
+        <div v-html="liveExamInfo.examDesc"></div>
       </div>
     </b-container>
     <div>
-  
-</div>
-             
+   </div>         
   </div>
 </template>
 
 <script>
+import CountDown from '@/components/global/CountDown'
+
 export default {
   name: 'ExamDetails',
   props: {
-    examId: {
+    liveExamId: {
       type: String,
       default: null
     }
@@ -75,26 +83,46 @@ export default {
   
   data() {
     return {
-      upcomingExam: true
+      upcomingExam: true,
+      liveExamInfo:{},
+      
     }
   },
   
   computed: {
-    getExamDetails() {
-      return this.$store.state.exams.currentExamDetails
-    }
+   CountDown
   },
   methods: {
+
     startNow() {
      if(this.$auth.loggedIn){
         this.$router.push('/exam/started')
      }else{
          this.$refs['login-modal'].show();
      }
-    }
+    },
+
+     getLiveExamInfoById(id) {
+         this.$axios.get("/public/liveExamiInfo/"+id).then(response => {
+          this.liveExamInfo=response.data;
+           this.$store.dispatch('exams/setRealExamId',this.liveExamInfo.realExamId)
+           
+                  var liveExamObject = new Object();
+                  liveExamObject.liveExamInfoId = this.liveExamInfo.id,
+                  liveExamObject.realExamId =  this.liveExamInfo.realExamId,
+                  liveExamObject.examName =  this.liveExamInfo.examName,
+                  liveExamObject.examDate =  this.liveExamInfo.examDate,
+                  liveExamObject.examResultTime =  this.liveExamInfo.examResultTime,
+          
+            this.$auth.$storage.setUniversal('Live_Exam_Info_Object', liveExamObject)
+          }) .catch(e => {
+
+          });
+      },
   },
   created() {
-    this.$store.dispatch('exams/getExamDetailsByExamId', this.examId)
+    
+    this.getLiveExamInfoById(this.liveExamId);
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <ExamDetails class="examDetails" :exam-id="examId" />
+  <ExamDetails class="examDetails" :live-exam-id="liveExamId" />
 </template>
 
 <script>
@@ -11,9 +11,11 @@ export default {
     ExamDetails
   },
   computed: {
-    examId() {
-      console.log('Exam ID is: ', this.$route.params.exam_id)
-      return this.$route.params.exam_id
+    liveExamId() {
+      let liveExamId=this.$route.params.exam_id;
+      this.$store.dispatch('exams/setLiveExamId',liveExamId)
+      console.log('Live exam id is: ',liveExamId)
+      return liveExamId
     }
   }
 }
