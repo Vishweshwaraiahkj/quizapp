@@ -193,7 +193,7 @@
           </b-col>
         </b-row>
 
-        <div v-for="(section, index) in exam.sections" :key="index">
+        <div v-for="(section, idx) in exam.sections" :key="idx">
           <b-row class="categorized-cards">
             <b-col lg="12">
               <b-card
@@ -204,7 +204,7 @@
               >
                 <div slot="header">
                   <b-link
-                    v-b-toggle="'section-' + index"
+                    v-b-toggle="'section-' + idx"
                     class="card-header-action btn-minimize"
                   >
                     <h5
@@ -218,7 +218,7 @@
                     </div>
                   </b-link>
                 </div>
-                <b-collapse :id="'section-' + index" visible>
+                <b-collapse :id="'section-' + idx" visible>
                   <b-card-body>
                     <div
                       v-for="(question, index) in section.questions"

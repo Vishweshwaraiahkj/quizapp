@@ -105,7 +105,7 @@ export default {
         this.leaderboard = await this.$axios.$get(
           '/published/leaderboard/' + liveExamId
         )
-        if (this.leaderboard.status == 2) {
+        if (this.leaderboard.status === 2) {
           this.isPublished = true
         }
       } catch (error) {

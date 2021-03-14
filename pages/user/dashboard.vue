@@ -88,17 +88,14 @@ export default {
     },
 
     goToResultPage(item) {
-      const liveExamObject = new Object()
+      const liveExamObject = {}
+      liveExamObject.liveExamInfoId = item.liveExamId
+      liveExamObject.realExamId = item.realExamId
+      liveExamObject.examName = item.examName
+      liveExamObject.examDate = item.examDate
+      liveExamObject.examResultTime = item.exam_result_time
 
-      ;(liveExamObject.liveExamInfoId = item.liveExamId),
-        (liveExamObject.realExamId = item.realExamId),
-        (liveExamObject.examName = item.examName),
-        (liveExamObject.examDate = item.examDate),
-        (liveExamObject.examResultTime = item.exam_result_time),
-        this.$auth.$storage.setUniversal(
-          'Live_Exam_Info_Object',
-          liveExamObject
-        )
+      this.$auth.$storage.setUniversal('Live_Exam_Info_Object', liveExamObject)
 
       this.$router.push('/exam/result/LE_REVIEW_' + item.liveExamId)
     }

@@ -281,7 +281,7 @@ export default {
       const exam = this.examData
       this.calculateResult(exam)
 
-      const er = new Object()
+      const er = {}
       er.ansObj = this.ansArray
       er.status = 'completed'
       er.examId = exam.examId
