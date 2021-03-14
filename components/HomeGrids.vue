@@ -7,14 +7,13 @@
     >
       <nuxt-link
         v-if="!item.noData"
-        :to="goTo(item.realExamId)"
+        :to="goTo(item.id)"
         class="black_anchor"
       >
         <div
           :id="index"
           class="banner"
-          :style="{ backgroundImage: 'url(' + item.examBgImageLoc + ')' }"
-        ></div>
+          :style="{ backgroundImage: 'url(' + item.examBgImageLoc + ')' }"></div>
         <b-card header-tag="header" footer-tag="footer">
           <template v-slot:header>
             <div class="d-flex">
@@ -22,13 +21,14 @@
                 <b-img :src="item.examIconLoc" class="responsive"></b-img>
               </div>
               <div class="headerDetails">
-                <h5>Architecting with Google Kubernetes Engine II</h5>
-                <span class="block">Google Cloud</span>
+                <h4>{{item.examName}}</h4>
               </div>
             </div>
           </template>
           <b-card-text>
-            <div v-if="item.examInfo.length < 100">{{ item.examInfo }}</div>
+            <div v-if="item.examInfo.length < 100">
+              <span v-html="item.examInfo "></span>
+              </div>
             <div v-else>{{ item.examInfo.substring(0, 100) + '...' }}</div>
           </b-card-text>
           <template v-slot:footer>

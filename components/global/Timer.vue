@@ -4,7 +4,7 @@
       <span v-if="days">{{ days }} Days</span>
       <span v-if="hours">{{ hours | formatTime }} Hours</span>
       <span v-if="minutes">{{ minutes | formatTime }} Minutes</span>
-      <span v-if="seconds">{{ seconds | formatTime }} Seconds</span>
+     <!-- <span v-if="seconds">{{ seconds | formatTime }} Seconds</span> --->
     </div>
     <div v-if="!currentTime" class="text-center">Time's Up!</div>
   </div>

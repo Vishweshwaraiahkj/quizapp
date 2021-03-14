@@ -1,8 +1,7 @@
 <template>
   <div class="examStarted">
  
-    <ExamStart :exam-id="examId"  
-    @go-to-leaderboard="goToLeaderboard(liveExamId)"/>
+    <ExamStart :exam-id="examId"   @go-to-result-page="goToResultPage()"/>
     <div>
       <b-modal
         v-model="openedModal"
@@ -31,30 +30,28 @@
 import ExamStart from '@/components/exams/ExamStart'
 export default {
   name: 'StartExam',
-  auth: false,
+  auth: true,
+
   components: {
     ExamStart
   },
   data: () => ({
     leavePage: false,
     openedModal: false,
-    isGoToLeaderboard:false,
+    isGoTogoToResultPage:false,
     nextUrl: () => {}
   }),
+
   computed: {
     examId() {
      
-      const RealExamID = this.$store.state.exams.currentExamDetails.realExamId
-        ? this.$store.state.exams.currentExamDetails.realExamId
-        : undefined
+      const RealExamID = this.$store.state.exams.realExamId
+       
       return Number(RealExamID)
     },
+    
     liveExamId() {
-      
-      const LiveExamID = this.$store.state.exams.currentExamDetails.id
-        ? this.$store.state.exams.currentExamDetails.id
-        : undefined
-        
+      const LiveExamID = this.$store.state.exams.liveExamId;
       return Number(LiveExamID)
     }
   },
@@ -65,7 +62,7 @@ export default {
     })
   },
   beforeRouteLeave(to, from, next) {
-    if(this.isGoToLeaderboard){
+    if(this.isGoTogoToResultPage){
         this.openedModal = false
     }else{
           this.openedModal = true
@@ -91,10 +88,10 @@ export default {
       this.openedModal = !this.openedModal
     },
 
-    goToLeaderboard(liveExamId){
-      this.isGoToLeaderboard=true;
+    goToResultPage(){
+      this.isGoTogoToResultPage=true;
       this.leavePage = true
-      this.$router.push("/leaderboard/"+liveExamId);
+      this.$router.push("/exam/result/"+"LE_LIVE_"+this.liveExamId);
       this.nextUrl()   
     }
   }

@@ -45,14 +45,15 @@ export default {
     return {}
   },
   computed: {
+
     getUserName() {
+   
       let getUserName = 'Guest User'
-      const uData = this.$store.state.users.userData
-        ? this.$store.state.users.userData
+      const uData = this.$auth.$storage.getUniversal('USER_DATA')
+        ? this.$auth.$storage.getUniversal('USER_DATA')
         : undefined
       if (uData && uData.name) {
-        console.log('User Data: ', this.$store.state.users.userData)
-        getUserName = this.$store.state.users.userData.name
+        getUserName = this.$auth.$storage.getUniversal('USER_DATA')
       } else if (uData && uData.firstName) {
         getUserName =
           uData.firstName && uData.lastName

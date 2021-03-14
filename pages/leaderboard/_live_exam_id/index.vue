@@ -1,8 +1,22 @@
 
 <template>
   <div>
-  <b-card class="text-center">
+    <b-card>
+          <div class="d-flex justify-content-center">
+              1 prizze
+          <b-img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQixqjpXBp3M_ies5uGa1eyUfXYaydVgxlHwg&usqp=CAU" alt="Center image">
+         
+          </b-img>
+            
+        </div>
 
+        <div class="d-flex justify-content-around">
+          <b-img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQixqjpXBp3M_ies5uGa1eyUfXYaydVgxlHwg&usqp=CAU" alt="Left image"></b-img>
+          <b-img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQixqjpXBp3M_ies5uGa1eyUfXYaydVgxlHwg&usqp=CAU" alt="Right image"></b-img>
+        </div>
+      
+     </b-card> 
+  <b-card class="text-center">
         <div v-if="isPublished">
             <b-table small :fields="fields" :items="leaderboard.leaders" responsive="sm">
               <!-- A virtual column -->
@@ -77,7 +91,7 @@ export default {
 
  async getLeaderboardData(liveExamId) {
     try {
-     this.leaderboard = await this.$axios.$get('http://localhost:5000/published/leaderboard/' + liveExamId )
+     this.leaderboard = await this.$axios.$get('/published/leaderboard/' + liveExamId )
      if(this.leaderboard.status == 2){
         this.isPublished=true;
      }

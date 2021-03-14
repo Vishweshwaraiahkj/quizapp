@@ -159,9 +159,11 @@ export default {
     register(value) {
       this.$store.commit('users/SET_REGISTER_PAGE', value)
     },
+
     setUserData(user) {
       this.$auth.setUser(user)
       this.$store.commit('users/SET_USER_DATA', user)
+      this.$auth.$storage.setUniversal('USER_DATA', user)
      
     },
     handleSdkInit({ FB, scope }) {

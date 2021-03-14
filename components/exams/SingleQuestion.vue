@@ -1,16 +1,17 @@
 <template>
   <b-container fluid="sm" class="p-3 singleQuestion">
     <h4 :id="'question_' + currentQuestion.qunId" class="question">
-      {{ currentQuestion.qun }} 
+      <span v-html="currentQuestion.qun"></span> 
     </h4>
-    <hr />
+     
+    <br/>
     <b-list-group>
       <b-list-group-item class="answers"
         v-for="(answer, key, index) in currentQuestion.options"
         :id="'answer_' + currentQuestion.qunId + '_' + key" :key="index"  @click="sendAns($event)">
 		
         <b-form-radio v-model="selected" name="some-radios" :value="key">
-          <span>{{ answer }}</span> 
+          <span v-html="answer"></span> 
         </b-form-radio>
       </b-list-group-item>
     </b-list-group>
@@ -29,20 +30,22 @@ export default {
   },
   data: () => ({
     isActive: true,
-    selected: undefined
+    selected: undefined,
+    
   }),
   
-   methods: {
-   
-  sendAns(event){
-	var  targetId = event.currentTarget.id;
-	this.$emit('update-ans',event, targetId);
-  }
+   methods: { 
+          sendAns(event){
+          var  targetId = event.currentTarget.id;
+          this.$emit('update-ans',event, targetId);
+          }
    },
    
    mounted() {
-	this.selected=undefined;
-   }
+      	this.selected=undefined;
+   },
+
+   
 }
 </script>
 
