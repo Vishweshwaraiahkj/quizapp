@@ -2,41 +2,50 @@
   <b-container fluid="sm" class="home_page">
     <div v-if="isLoading" class="is_loading">Loading Data!</div>
     <b-row v-else>
-      
-	    <Carousel/>
+      <Carousel />
       <div>
-          <h4>Take Exam Win Cash Prize</h4>
+        <h4>Take Exam Win Cash Prize</h4>
       </div>
       <HomeGrids :props-data="liveExams" :items-per-row="3" />
 
       <div>
-        <b-jumbotron  header-level="5">
-            <template #lead>
-            You can get here all previous year karnataka police constable question papers
-            from year 2020,2019,2018,2017
-            </template>
-                 <p>
-                We converted all previous year karnataka police constable question papers ar free mock test 
-                from year 2020,2019,2018,2017
-            </p>
-            <hr class="my-4">
-            <ul>
-                <li> <h5>Karnataka Police Constable Exam Free Online Test Serises</h5></li>
-                <li><h5>Karnataka  Police Constable Exam Free Mock Test</h5></li>
-                <li><h5>Karnataka Police Constable old Question Papers</h5></li>
-                <li><h5>karnataka police constable previous year question mock test</h5></li>  
-            </ul> 
- <hr class="my-4">
-             <ul>
-                <li> <h5>KSP Police Constable Exam Free Online Test Serises free</h5></li>
-                <li><h5>KSP Police Constable Exam Free Mock Test free</h5></li>
-                <li><h5>KSP Police Constable old Question Papers free</h5></li>
-                <li><h5>KSP police constable previous year question mock test free</h5></li>  
-            </ul> 
-           
+        <b-jumbotron header-level="5">
+          <template #lead>
+            You can get here all previous year karnataka police constable
+            question papers from year 2020,2019,2018,2017
+          </template>
+          <p>
+            We converted all previous year karnataka police constable question
+            papers ar free mock test from year 2020,2019,2018,2017
+          </p>
+          <hr class="my-4" />
+          <ul>
+            <li>
+              <h5>Karnataka Police Constable Exam Free Online Test Serises</h5>
+            </li>
+            <li><h5>Karnataka Police Constable Exam Free Mock Test</h5></li>
+            <li><h5>Karnataka Police Constable old Question Papers</h5></li>
+            <li>
+              <h5>
+                karnataka police constable previous year question mock test
+              </h5>
+            </li>
+          </ul>
+          <hr class="my-4" />
+          <ul>
+            <li>
+              <h5>KSP Police Constable Exam Free Online Test Serises free</h5>
+            </li>
+            <li><h5>KSP Police Constable Exam Free Mock Test free</h5></li>
+            <li><h5>KSP Police Constable old Question Papers free</h5></li>
+            <li>
+              <h5>
+                KSP police constable previous year question mock test free
+              </h5>
+            </li>
+          </ul>
         </b-jumbotron>
-     </div>
-
+      </div>
     </b-row>
   </b-container>
 </template>
@@ -53,7 +62,7 @@ export default {
   data() {
     return {
       isLoading: true,
-      liveExams:[],
+      liveExams: []
     }
   },
   computed: {
@@ -65,15 +74,16 @@ export default {
     this.getData()
   },
   methods: {
-     getData() {
-         this.$axios.get("/landing/live-exam").then(response => {
-           console.log(response)
-          this.liveExams=response.data;
-        }) .catch(e => {
-         
-        });
-         this.isLoading = false
-    },
+    getData() {
+      this.$axios
+        .get('/landing/live-exam')
+        .then((response) => {
+          console.log(response)
+          this.liveExams = response.data
+        })
+        .catch((e) => {})
+      this.isLoading = false
+    }
   }
 }
 </script>

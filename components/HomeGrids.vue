@@ -5,15 +5,12 @@
       :key="item.id"
       :class="item.newClass ? item.newClass : 'col'"
     >
-      <nuxt-link
-        v-if="!item.noData"
-        :to="goTo(item.id)"
-        class="black_anchor"
-      >
+      <nuxt-link v-if="!item.noData" :to="goTo(item.id)" class="black_anchor">
         <div
           :id="index"
           class="banner"
-          :style="{ backgroundImage: 'url(' + item.examBgImageLoc + ')' }"></div>
+          :style="{ backgroundImage: 'url(' + item.examBgImageLoc + ')' }"
+        ></div>
         <b-card header-tag="header" footer-tag="footer">
           <template v-slot:header>
             <div class="d-flex">
@@ -21,14 +18,14 @@
                 <b-img :src="item.examIconLoc" class="responsive"></b-img>
               </div>
               <div class="headerDetails">
-                <h4>{{item.examName}}</h4>
+                <h4>{{ item.examName }}</h4>
               </div>
             </div>
           </template>
           <b-card-text>
             <div v-if="item.examInfo.length < 100">
-              <span v-html="item.examInfo "></span>
-              </div>
+              <span v-html="item.examInfo"></span>
+            </div>
             <div v-else>{{ item.examInfo.substring(0, 100) + '...' }}</div>
           </b-card-text>
           <template v-slot:footer>

@@ -12,9 +12,9 @@ export default {
   },
   computed: {
     liveExamId() {
-      let liveExamId=this.$route.params.exam_id;
-      this.$store.dispatch('exams/setLiveExamId',liveExamId)
-      console.log('Live exam id is: ',liveExamId)
+      const liveExamId = this.$route.params.exam_id
+      this.$store.dispatch('exams/setLiveExamId', liveExamId)
+      console.log('Live exam id is: ', liveExamId)
       return liveExamId
     }
   }

@@ -94,13 +94,13 @@
 <script>
 export default {
   name: 'LoginAuth',
-   props: {
-          endUrl: {
-              type: String,
-              default: null
-            },
-        },
   components: {},
+  props: {
+    endUrl: {
+      type: String,
+      default: null
+    }
+  },
   data() {
     return {
       form: {
@@ -118,11 +118,9 @@ export default {
   methods: {
     onSubmit(evt) {
       evt.preventDefault()
-     
     },
     async userLogin() {
       try {
-           
         const response = await this.$auth.loginWith('local', {
           data:
             'username=' +
@@ -135,10 +133,9 @@ export default {
         this.$auth.setUserToken(response.data.access_token)
         const user = await this.$axios.$get('/users/' + response.data.userId)
         await this.setUserData(user)
-        if(this.endUrl!=null){
-              await this.$router.push('/'+this.endUrl)
+        if (this.endUrl != null) {
+          await this.$router.push('/' + this.endUrl)
         }
-        
       } catch (err) {
         console.log('Login Error: ', err)
       }
@@ -164,7 +161,6 @@ export default {
       this.$auth.setUser(user)
       this.$store.commit('users/SET_USER_DATA', user)
       this.$auth.$storage.setUniversal('USER_DATA', user)
-     
     },
     handleSdkInit({ FB, scope }) {
       this.FB = FB
@@ -199,9 +195,7 @@ export default {
     fbClick() {
       console.log('FB Btn Click')
     }
-  },
-
- 
+  }
 }
 </script>
 <style scoped>

@@ -1,17 +1,20 @@
 <template>
   <b-container fluid="sm" class="p-3 singleQuestion">
     <h4 :id="'question_' + currentQuestion.qunId" class="question">
-      <span v-html="currentQuestion.qun"></span> 
+      <span v-html="currentQuestion.qun"></span>
     </h4>
-     
-    <br/>
+
+    <br />
     <b-list-group>
-      <b-list-group-item class="answers"
+      <b-list-group-item
         v-for="(answer, key, index) in currentQuestion.options"
-        :id="'answer_' + currentQuestion.qunId + '_' + key" :key="index"  @click="sendAns($event)">
-		
+        :id="'answer_' + currentQuestion.qunId + '_' + key"
+        :key="index"
+        class="answers"
+        @click="sendAns($event)"
+      >
         <b-form-radio v-model="selected" name="some-radios" :value="key">
-          <span v-html="answer"></span> 
+          <span v-html="answer"></span>
         </b-form-radio>
       </b-list-group-item>
     </b-list-group>
@@ -25,27 +28,23 @@ export default {
     currentQuestion: {
       type: Object,
       default: () => ({})
-    },
-	
+    }
   },
   data: () => ({
     isActive: true,
-    selected: undefined,
-    
+    selected: undefined
   }),
-  
-   methods: { 
-          sendAns(event){
-          var  targetId = event.currentTarget.id;
-          this.$emit('update-ans',event, targetId);
-          }
-   },
-   
-   mounted() {
-      	this.selected=undefined;
-   },
 
-   
+  mounted() {
+    this.selected = undefined
+  },
+
+  methods: {
+    sendAns(event) {
+      const targetId = event.currentTarget.id
+      this.$emit('update-ans', event, targetId)
+    }
+  }
 }
 </script>
 

@@ -7,8 +7,8 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "lint:style": "stylelint **/*.{vue,css} --ignore-path .gitignore",
+    "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore . --fix",
+    "lint:style": "stylelint **/*.{vue,css} --ignore-path .gitignore --fix",
     "lint": "npm run lint:js && npm run lint:style",
     "test": "jest"
   },
@@ -31,6 +31,7 @@
     "bootstrap": "^4.5.3",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.9.1",
+    "defu": "^3.2.2",
     "nuxt": "^2.15.3",
     "vue-facebook-login-component": "^4.0.1"
   },

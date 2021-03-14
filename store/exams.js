@@ -28,15 +28,14 @@ export const mutations = {
 }
 
 export const actions = {
-
-  setLiveExamId({ commit },liveExamID) {
+  setLiveExamId({ commit }, liveExamID) {
     commit('SET_LIVE_EXAM_ID', liveExamID)
   },
-  
-  setRealExamId({ commit },realExamId) {
+
+  setRealExamId({ commit }, realExamId) {
     commit('SET_REAL_EXAM_ID', realExamId)
   },
-  
+
   getExamDataAction({ commit }) {
     const response = jsonData // await this.$axios.$get()
     commit('SET_EXAM_DATA', response)
@@ -49,14 +48,13 @@ export const actions = {
     })[0]
     commit('SET_EXAM_DETAILS', detailsObject)
   },
-  
+
   async getExamFullData({ commit }, examId) {
-    const examIdUpdated = examId;
+    const examIdUpdated = examId
     let examFullData = {}
     try {
       examFullData = await this.$axios.$get(
-        'http://localhost:5000/exams/' +
-          examIdUpdated
+        'http://localhost:5000/exams/' + examIdUpdated
       )
     } catch (error) {
       examFullData = error

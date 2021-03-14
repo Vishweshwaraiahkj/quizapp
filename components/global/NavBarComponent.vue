@@ -45,9 +45,7 @@ export default {
     return {}
   },
   computed: {
-
     getUserName() {
-   
       let getUserName = 'Guest User'
       const uData = this.$auth.$storage.getUniversal('USER_DATA')
         ? this.$auth.$storage.getUniversal('USER_DATA')
