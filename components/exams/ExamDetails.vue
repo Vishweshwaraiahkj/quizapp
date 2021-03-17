@@ -12,7 +12,7 @@
       :style="{ backgroundImage: 'url(' + liveExamInfo.examBgImageLoc + ')' }"
     >
       <b-container fluid="sm" class="py-3">
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center header-box">
           <div class="company_logo">
             <b-img
               class="b-lazy b-loaded"
@@ -22,7 +22,7 @@
           </div>
           <div class="banner_details">
             <h1>{{ liveExamInfo.examName }}</h1>
-            <h3></h3>
+            <h3 v-if="liveExamInfo.subTitle">{{ liveExamInfo.subTitle }}</h3>
           </div>
         </div>
       </b-container>
@@ -72,7 +72,6 @@
       <div class="question_desc">
         <!-- eslint-disable-next-line -->
         <div v-html="liveExamInfo.examDesc"></div>
-        <span class="d-none">{{ CountDown }}</span>
       </div>
     </b-container>
     <div></div>
@@ -80,8 +79,6 @@
 </template>
 
 <script>
-import CountDown from '@/components/global/CountDown'
-
 export default {
   name: 'ExamDetails',
   props: {
@@ -95,9 +92,6 @@ export default {
       upcomingExam: true,
       liveExamInfo: {}
     }
-  },
-  computed: {
-    CountDown
   },
   created() {
     this.getLiveExamInfoById(this.liveExamId)
@@ -170,15 +164,17 @@ export default {
   border-radius: 5px;
   padding: 0 0.75rem;
   display: inline-block;
+  margin-top: 0.5rem;
 }
 .question_brief,
 .question_desc {
   border-radius: 6px;
   background-color: #fff;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.18);
-  margin-bottom: 20px;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 18%);
+  margin-bottom: 1.25rem;
   border-bottom: 1px solid #e0e0e0;
-  padding: 15px;
+  padding: 1rem;
+  padding-bottom: 2rem;
 }
 .question_details .d-flex span {
   width: 10%;
@@ -209,5 +205,40 @@ li.clearfix {
 }
 li.clearfix .details {
   margin-left: 1rem;
+}
+
+@media only screen and (max-width: 1024px) {
+  /* For small devices: */
+  .question_details .d-flex span {
+    width: 20%;
+  }
+
+  .ExamBoard .row {
+    padding: 0 0.5rem;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  /* For mobile phones: */
+  .header-box {
+    flex-direction: column;
+  }
+
+  .company_logo {
+    width: auto;
+    height: auto;
+    line-height: 1;
+    margin: auto;
+    margin-bottom: 1rem;
+  }
+
+  .banner_details h1,
+  .banner_details h3 {
+    display: flex;
+  }
+
+  .question_details .d-flex span {
+    width: 25%;
+  }
 }
 </style>

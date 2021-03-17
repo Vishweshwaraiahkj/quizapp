@@ -2,24 +2,27 @@
   <b-container fluid="sm" class="ExamBoard">
     <div v-if="isLoading" class="is_loading">Loading Data!</div>
     <b-row v-else class="dataBox">
-      <div class="d-flex align-items-right w-100">
+      <div class="d-flex align-items-right custom-progress-bar">
         <Timer v-if="deadline" :deadline="deadline" :speed="1000" />
         <b-progress-bar :value="timerCount" max="80" show-progress animated>
           <span>{{ timerCount }} Seconds Left</span>
         </b-progress-bar>
       </div>
       <div class="w-100">
-        <SingleQuestion
-          v-if="currentQuestion"
-          :current-question="currentQuestion"
-          @update-ans="updateAns"
-        />
-        <div v-else>
-          <h1>
-            You are done with exam! Thank you :)
-            {{ saveExamResult() }}
-          </h1>
-        </div>
+        <keep-alive>
+          <SingleQuestion
+            v-if="currentQuestion"
+            :key="currentQuestion.qunId"
+            :current-question.sync="currentQuestion"
+            @update-ans="updateAns"
+          />
+          <div v-else>
+            <h1>
+              You are done with exam! Thank you :)
+              {{ saveExamResult() }}
+            </h1>
+          </div>
+        </keep-alive>
       </div>
     </b-row>
     <button @click="saveExamResult">test</button>
@@ -58,12 +61,14 @@ export default {
     examStartTime() {
       return this.getDateTime()
     },
+
     examData() {
       const data = this.$store.state.exams.examFullData
         ? this.$store.state.exams.examFullData
         : {}
       return data.isAxiosError ? data.message : data
     },
+
     isLoading() {
       if (Object.keys(this.examData).length > 0) {
         return false
@@ -71,6 +76,7 @@ export default {
         return true
       }
     },
+
     currentQuestion() {
       const i = this.index
       if (this.examData && this.examData.sections)
@@ -189,7 +195,6 @@ export default {
       const obj = { qunId: '', ans: '', status: 0, time: '' }
       const inx = this.index
       const id = targetId.split('_')
-      console.log(targetId)
       obj.qunId = id[1]
       obj.ans = id[2]
       obj.status = 3
@@ -210,10 +215,10 @@ export default {
     },
 
     calculateResult(exam) {
+      const totalQun = this.ansArray.length
       let correctAnswer = 0
       let notAttempted = 0
       let notAnswered = 0
-      const totalQun = this.ansArray.length
       let ansIndx = 0
       let totalMarks = 0
       let wrongAnswer = 0
@@ -226,7 +231,6 @@ export default {
         for (let j = 0; j < section.totalQuestion; j++) {
           const question = section.questions[j]
           const ansObj = this.ansArray[ansIndx]
-          // console.log(ansObj);
           if (ansObj.status === 0) {
             notAttempted++
           } else if (ansObj.status === 1) {
@@ -289,6 +293,7 @@ export default {
       er.totalMarks = this.examMarks
       er.obtainedMarks = this.obtainedMarks
       er.percentage = this.percentage
+
       this.$axios({
         method: 'post',
         url: '/user/live-exam-results?access_token=' + this.getToken(),
@@ -301,9 +306,7 @@ export default {
           this.$emit('go-to-result-page')
         })
         .catch((e) => {
-          alert('something went worng.....exam is not saved')
-          this.$router.push('/pages/500')
-          console.log(e)
+          this.$router.push('/errors/500')
         })
     }
   }
@@ -323,5 +326,16 @@ export default {
 
 .ExamBoard .row {
   padding: 0 2rem;
+}
+
+.custom-progress-bar {
+  width: 100%;
+  margin: 1rem 0;
+  background: #fdeeee;
+  padding: 0.5rem;
+}
+
+.custom-progress-bar > div:first-child {
+  padding-right: 0.625rem;
 }
 </style>
