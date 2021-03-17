@@ -72,6 +72,7 @@
       <div class="question_desc">
         <!-- eslint-disable-next-line -->
         <div v-html="liveExamInfo.examDesc"></div>
+        <span class="d-none">{{ CountDown }}</span>
       </div>
     </b-container>
     <div></div>
@@ -89,14 +90,12 @@ export default {
       default: null
     }
   },
-
   data() {
     return {
       upcomingExam: true,
       liveExamInfo: {}
     }
   },
-
   computed: {
     CountDown
   },
@@ -111,7 +110,6 @@ export default {
         this.$refs['login-modal'].show()
       }
     },
-
     getLiveExamInfoById(id) {
       this.$axios
         .get('/public/liveExamiInfo/' + id)
@@ -121,7 +119,6 @@ export default {
             'exams/setRealExamId',
             this.liveExamInfo.realExamId
           )
-
           const liveExamObject = {}
           liveExamObject.liveExamInfoId = this.liveExamInfo.id
           liveExamObject.realExamId = this.liveExamInfo.realExamId
