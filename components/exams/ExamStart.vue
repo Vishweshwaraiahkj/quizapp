@@ -138,21 +138,10 @@ export default {
     this.$store.dispatch('exams/getExamFullData', this.examId)
 
     const timer = () => {
-      if (
-        this.index ===
-        (this.examData.sections && this.examData.sections[0].questions.length)
-      ) {
+      if (this.index === this.examData?.sections[0]?.questions?.length) {
         clearInterval(myVar)
       }
-      const currentTime = this.getDateTime()
-      if (
-        // eslint-disable-next-line
-        currentTime.data === currentTime.dat &&
-        // eslint-disable-next-line
-        currentTime.time === currentTime.time &&
-        this.index <=
-          (this.examData.sections && this.examData.sections[0].questions.length)
-      ) {
+      if (this.index <= this.examData?.sections[0]?.questions?.length) {
         this.index = ++this.index
       }
     }
@@ -337,5 +326,11 @@ export default {
 
 .custom-progress-bar > div:first-child {
   padding-right: 0.625rem;
+}
+
+@media only screen and (max-width: 640px) {
+  .ExamBoard .row {
+    padding: 0 0.625rem;
+  }
 }
 </style>
