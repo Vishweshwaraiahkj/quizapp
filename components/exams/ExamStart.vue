@@ -2,28 +2,29 @@
   <b-container fluid="sm" class="ExamBoard">
     <div v-if="isLoading" class="is_loading">Loading Data!</div>
     <b-row v-else class="dataBox">
-      <div class="d-flex align-items-right custom-progress-bar">
-        <Timer v-if="deadline" :deadline="deadline" :speed="1000" />
-        <b-progress-bar :value="timerCount" max="80" show-progress animated>
-          <span>{{ timerCount }} Seconds Left</span>
-        </b-progress-bar>
-      </div>
-      <div class="w-100">
-        <keep-alive>
-          <SingleQuestion
-            v-if="currentQuestion"
-            :key="currentQuestion.qunId"
-            :current-question.sync="currentQuestion"
-            @update-ans="updateAns"
-          />
-          <div v-else>
-            <h1>
-              You are done with exam! Thank you :)
-              {{ saveExamResult() }}
-            </h1>
-          </div>
-        </keep-alive>
-      </div>
+      <template v-if="currentQuestion">
+        <div class="d-flex align-items-right custom-progress-bar">
+          <Timer v-if="deadline" :deadline="deadline" :speed="1000" />
+          <b-progress-bar :value="timerCount" max="80" show-progress animated>
+            <span>{{ timerCount }} Seconds Left</span>
+          </b-progress-bar>
+        </div>
+        <div class="w-100">
+          <keep-alive>
+            <SingleQuestion
+              :key="currentQuestion.qunId"
+              :current-question.sync="currentQuestion"
+              @update-ans="updateAns"
+            />
+          </keep-alive>
+        </div>
+      </template>
+      <template v-else>
+        <h1>
+          You are done with exam! Thank you :)
+          {{ saveExamResult() }}
+        </h1>
+      </template>
     </b-row>
     <button @click="saveExamResult">test</button>
   </b-container>
@@ -35,19 +36,16 @@ import Timer from '@/components/global/Timer'
 
 export default {
   name: 'ExamStart',
-
   components: {
     SingleQuestion,
     Timer
   },
-
   props: {
     examId: {
       type: Number,
       default: undefined
     }
   },
-
   data: () => ({
     index: 0,
     ansArray: [],
@@ -56,19 +54,16 @@ export default {
     percentage: 0,
     timerCount: 60
   }),
-
   computed: {
     examStartTime() {
       return this.getDateTime()
     },
-
     examData() {
       const data = this.$store.state.exams.examFullData
         ? this.$store.state.exams.examFullData
         : {}
-      return data.isAxiosError ? data.message : data
+      return data.isAxiosError ? false : data
     },
-
     isLoading() {
       if (Object.keys(this.examData).length > 0) {
         return false
@@ -76,21 +71,18 @@ export default {
         return true
       }
     },
-
     currentQuestion() {
       const i = this.index
       if (this.examData && this.examData.sections)
         return this.examData.sections[0].questions[i]
-      return {}
+      return false
     },
-
     questionsCount() {
       return this.examData.sections &&
         this.examData.sections[0].questions.length
         ? this.examData.sections[0].questions.length
         : 0
     },
-
     deadline() {
       let deadline = 0
       if (this.questionsCount) {
@@ -118,7 +110,6 @@ export default {
       return deadline
     }
   },
-
   watch: {
     timerCount: {
       handler(value) {
@@ -133,25 +124,26 @@ export default {
       immediate: true // This ensures the watcher is triggered upon creation
     }
   },
-
   created() {
     this.$store.dispatch('exams/getExamFullData', this.examId)
-
+    const sections = this.examData && this.examData.sections
+    let questionLength = 0
+    if (sections && sections.length && sections[0].questions.length) {
+      questionLength = sections[0].questions.length
+    }
     const timer = () => {
-      if (this.index === this.examData?.sections[0]?.questions?.length) {
+      if (this.index === questionLength) {
         clearInterval(myVar)
       }
-      if (this.index <= this.examData?.sections[0]?.questions?.length) {
+      if (this.index <= questionLength) {
         this.index = ++this.index
       }
     }
     const myVar = setInterval(timer, 60000)
   },
-
   mounted() {
     this.createAnsObject()
   },
-
   methods: {
     getDateTime() {
       const today = new Date()
@@ -166,7 +158,6 @@ export default {
       const dateTime = date + ' ' + time
       return { dateTime, date, time }
     },
-
     createAnsObject() {
       const totalQutions = 10
       // for (var i = 0; i < this.exam.sections.length; i++) {
@@ -179,7 +170,6 @@ export default {
         time: ''
       })
     },
-
     updateAns(event, targetId) {
       const obj = { qunId: '', ans: '', status: 0, time: '' }
       const inx = this.index
@@ -189,7 +179,6 @@ export default {
       obj.status = 3
       this.ansArray[inx] = obj
     },
-
     getAns(ansIndex) {
       if (ansIndex === 0) {
         return 'opt1'
@@ -202,7 +191,6 @@ export default {
         return 'opt4'
       }
     },
-
     calculateResult(exam) {
       const totalQun = this.ansArray.length
       let correctAnswer = 0
@@ -255,13 +243,11 @@ export default {
           this.percentage
       )
     },
-
     getToken() {
       let token = this.$auth.getToken('local')
       token = token.replace('Bearer ', '')
       return token
     },
-
     saveExamResult() {
       let liveExamId
       let uData
@@ -272,6 +258,9 @@ export default {
       }
 
       const exam = this.examData
+
+      if (!exam) return false
+
       this.calculateResult(exam)
 
       const er = {}
@@ -295,7 +284,7 @@ export default {
           this.$emit('go-to-result-page')
         })
         .catch((e) => {
-          this.$router.push('/errors/500')
+          this.$errorHandler('server', e)
         })
     }
   }

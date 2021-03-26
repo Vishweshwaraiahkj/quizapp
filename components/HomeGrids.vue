@@ -12,7 +12,7 @@
           :style="{ backgroundImage: 'url(' + item.examBgImageLoc + ')' }"
         ></div>
         <b-card header-tag="header" footer-tag="footer">
-          <template v-slot:header>
+          <template #header>
             <div class="d-flex">
               <div class="headerImage">
                 <b-img :src="item.examIconLoc" class="responsive"></b-img>
@@ -28,7 +28,7 @@
             </div>
             <div v-else>{{ item.examInfo.substring(0, 100) + '...' }}</div>
           </b-card-text>
-          <template v-slot:footer>
+          <template #footer>
             <span class="footer_text">Learn more</span>
           </template>
         </b-card>

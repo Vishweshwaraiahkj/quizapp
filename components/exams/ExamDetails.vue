@@ -79,8 +79,12 @@
 </template>
 
 <script>
+import LoginAuth from '@/components/user/loginAuth'
 export default {
   name: 'ExamDetails',
+  components: {
+    LoginAuth
+  },
   props: {
     liveExamId: {
       type: String,
@@ -125,7 +129,9 @@ export default {
             liveExamObject
           )
         })
-        .catch((e) => {})
+        .catch((e) => {
+          this.$errorHandler('server', e)
+        })
     }
   }
 }

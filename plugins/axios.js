@@ -1,4 +1,4 @@
-export default function ({ $axios, redirect }) {
+export default function ({ $axios }) {
   $axios.onRequest((config) => {
     config.headers['Access-Control-Allow-Headers'] = '*'
     config.headers['Access-Control-Allow-Origin'] = '*'

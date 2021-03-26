@@ -14,7 +14,7 @@
           </header>
           <div class="inputs">
             <b-form-group
-              v-if="this.$store.state.users.register"
+              v-if="isRegister"
               id="input-group-0"
               label-for="input-0"
             >
@@ -30,9 +30,7 @@
               id="input-group-1"
               label-for="input-1"
               :description="
-                this.$store.state.users.register
-                  ? 'Email doesnt exists, please register!'
-                  : ''
+                isRegister ? 'Email doesnt exists, please register!' : ''
               "
             >
               <b-form-input
@@ -52,15 +50,8 @@
                 placeholder="Enter password"
               ></b-form-input>
             </b-form-group>
-            <input
-              type="hidden"
-              name="grant_type"
-              :value="this.$store.state.users.grant_type"
-            />
-            <b-form-group
-              v-if="!this.$store.state.users.register"
-              id="input-group-4"
-            >
+            <input type="hidden" name="grant_type" :value="grantType" />
+            <b-form-group v-if="!isRegister" id="input-group-4">
               <p><a href="#">Forgot password?</a></p>
             </b-form-group>
           </div>
@@ -68,10 +59,10 @@
         <footer>
           <!-- use type="reset" variant="danger" to add a Reset button -->
           <b-button class="mb-2" type="submit" variant="primary">
-            <span v-if="this.$store.state.users.register">Register</span>
+            <span v-if="isRegister">Register</span>
             <span v-else>Login</span>
           </b-button>
-          <a v-if="!this.$store.state.users.register" @click="register(true)">
+          <a v-if="!isRegister" @click="register(true)">
             No account, then register here!
           </a>
           <a v-else @click="register(false)">Already Registered? Login here!</a>
@@ -94,7 +85,6 @@
 <script>
 export default {
   name: 'LoginAuth',
-  components: {},
   props: {
     endUrl: {
       type: String,
@@ -114,6 +104,17 @@ export default {
       model: {},
       scope: {}
     }
+  },
+  computed: {
+    isRegister() {
+      return this.$store.state.users.register
+    },
+    grantType() {
+      return this.$store.state.users.grant_type
+    }
+  },
+  mounted() {
+    this.$auth.logout('local')
   },
   methods: {
     onSubmit(evt) {
@@ -156,7 +157,6 @@ export default {
     register(value) {
       this.$store.commit('users/SET_REGISTER_PAGE', value)
     },
-
     setUserData(user) {
       this.$auth.setUser(user)
       this.$store.commit('users/SET_USER_DATA', user)

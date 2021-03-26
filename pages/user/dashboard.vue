@@ -83,7 +83,7 @@ export default {
           this.completedLiveExams = response.data
         })
         .catch((e) => {
-          alert('Error')
+          this.$errorHandler('server', e)
         })
     },
 

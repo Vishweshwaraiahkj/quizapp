@@ -1,5 +1,5 @@
 <template>
-  <h1 class="text-center p-3 text-dark">Server Error... Exam is not saved</h1>
+  <h1 class="text-center p-3 text-dark">Server Error...</h1>
 </template>
 
 <script>

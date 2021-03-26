@@ -34,6 +34,14 @@ export default {
   components: {
     ExamStart
   },
+  beforeRouteLeave(to, from, next) {
+    if (this.isGoTogoToResultPage) {
+      this.openedModal = false
+    } else {
+      this.openedModal = true
+    }
+    this.nextUrl = next
+  },
   data: () => ({
     leavePage: false,
     openedModal: false,
@@ -58,14 +66,6 @@ export default {
     this.$once('hook:beforeDestroy', () => {
       window.removeEventListener('beforeunload', this.preventNav)
     })
-  },
-  beforeRouteLeave(to, from, next) {
-    if (this.isGoTogoToResultPage) {
-      this.openedModal = false
-    } else {
-      this.openedModal = true
-    }
-    this.nextUrl = next
   },
   methods: {
     preventNav(event) {

@@ -1,3 +1,96 @@
+<template>
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 footer-info">
+            <h3>QuizApp</h3>
+            <p>
+              QuizApp provides the best-in-class mock exams for PSI, FDA, SDA,
+              Excise sub inspector and other competitive exams, If your ready to
+              achieve your goal, then we are the platform.
+            </p>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li>
+                <i class="ion-ios-arrow-right"></i>
+                <a href="/">Home</a>
+              </li>
+              <li>
+                <i class="ion-ios-arrow-right"></i>
+                <a href="https://www.flipkart.com/?affid=tojavajgm">Buy Book</a>
+              </li>
+            </ul>
+            <div class="social-links mt-3">
+              <a
+                href="https://www.facebook.com/"
+                target="_blank"
+                class="facebook"
+              >
+                <i class="fa fa-facebook"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4>Contact Us</h4>
+            <p>
+              QuizApp
+              <br />
+              4th Floor
+              <br />
+              Above Udupi Grand Hotel
+              <br />
+              Nagasandra Circle Basavanagudi
+              <br />
+              Bengaluru 560004
+              <br />
+              <strong>Phone:</strong>
+              +91-7353333573
+              <br />
+              <strong>Email:</strong>
+              quizapp@gmail.com
+              <br />
+            </p>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-newsletter">
+            <h4>Our Newsletter</h4>
+            <p>
+              Please contact +91-7353333573 to recieve our newsletters, offers
+              and updates
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        © Copyright
+        <strong>QuizApp</strong>
+        . All Rights Reserved
+      </div>
+      <div class="credits">
+        Designed by
+        <a href="javascript:void(0);">Masters</a>
+      </div>
+    </div>
+  </footer>
+</template>
+<script>
+export default {
+  name: 'CommonFooter',
+  data() {
+    return {
+      templateTitle: 'CommonFooter'
+    }
+  }
+}
+</script>
 <style scoped>
 /* --------------------------------------------------------------
 # Footer
@@ -161,97 +254,3 @@
   color: #ddd;
 }
 </style>
-
-<template>
-  <footer id="footer">
-    <div class="footer-top">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3 col-md-6 footer-info">
-            <h3>QuizApp</h3>
-            <p>
-              QuizApp provides the best-in-class mock exams for PSI, FDA, SDA,
-              Excise sub inspector and other competitive exams, If your ready to
-              achieve your goal, then we are the platform.
-            </p>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li>
-                <i class="ion-ios-arrow-right"></i>
-                <a href="/">Home</a>
-              </li>
-              <li>
-                <i class="ion-ios-arrow-right"></i>
-                <a href="https://www.flipkart.com/?affid=tojavajgm">Buy Book</a>
-              </li>
-            </ul>
-            <div class="social-links mt-3">
-              <a
-                href="https://www.facebook.com/"
-                target="_blank"
-                class="facebook"
-              >
-                <i class="fa fa-facebook"></i>
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-contact">
-            <h4>Contact Us</h4>
-            <p>
-              QuizApp
-              <br />
-              4th Floor
-              <br />
-              Above Udupi Grand Hotel
-              <br />
-              Nagasandra Circle Basavanagudi
-              <br />
-              Bengaluru 560004
-              <br />
-              <strong>Phone:</strong>
-              +91-7353333573
-              <br />
-              <strong>Email:</strong>
-              quizapp@gmail.com
-              <br />
-            </p>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-newsletter">
-            <h4>Our Newsletter</h4>
-            <p>
-              Please contact +91-7353333573 to recieve our newsletters, offers
-              and updates
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="copyright">
-        © Copyright
-        <strong>QuizApp</strong>
-        . All Rights Reserved
-      </div>
-      <div class="credits">
-        Designed by
-        <a href="javascript:void(0);">Masters</a>
-      </div>
-    </div>
-  </footer>
-</template>
-<script>
-export default {
-  name: 'CommonFooter',
-  data() {
-    return {
-      templateTitle: 'CommonFooter'
-    }
-  }
-}
-</script>

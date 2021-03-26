@@ -27,8 +27,9 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    '~plugins/fb_login.client.js', // renders only in client side
-    '~plugins/axios.js' // renders in both client & server
+    '~plugins/fb_login.client.js', // renders only in client side as appended with .client
+    '~plugins/axios.js', // renders in both client & server
+    '~plugins/errorHandler.client.js' // global error handler methods plugin file
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)

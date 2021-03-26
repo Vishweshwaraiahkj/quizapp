@@ -1,71 +1,3 @@
-<style scoped>
-.report-info > .row {
-  padding: 10px 0;
-}
-
-.report-info > .row h6,
-.report-info > .row h4 {
-  padding: 0;
-  margin: auto;
-}
-
-.report-info > .row.highlight:nth-child(even) {
-  background: #fff;
-}
-.report-info > .row.highlight:nth-child(odd) {
-  background: #fff;
-}
-
-.report-info > .row.highlight:hover {
-  background: #ccc;
-}
-
-.reviw-all-header {
-  margin: auto;
-  top: 4px;
-  position: relative;
-}
-
-.question-answer {
-  margin: 2rem 1rem;
-  padding: 1rem;
-  border-style: groove;
-}
-
-.question {
-  display: block;
-}
-
-.category-buttons {
-  display: block;
-}
-
-.category-buttons .col {
-  margin-bottom: 10px;
-}
-
-@media screen and (max-width: 480px) {
-  .category-buttons {
-    flex-wrap: wrap;
-    flex-direction: column;
-  }
-
-  .categorized-cards .card-body {
-    padding: 0;
-  }
-
-  .categorized-cards .card-body .question-answer {
-    padding: 0;
-    margin: auto;
-  }
-
-  .container {
-    padding-right: 6px;
-    padding-left: 6px;
-  }
-}
-</style>
-
 <template>
   <div class="app">
     <div class="app-body">
@@ -677,7 +609,7 @@ export default {
           console.log(response.data)
         })
         .catch((e) => {
-          console.log(e)
+          this.$errorHandler('server', e)
         })
     },
 
@@ -694,12 +626,80 @@ export default {
 .fade-enter-active {
   transition: all 0.3s ease;
 }
+
 .fade-leave-active {
   transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
 }
+
 .fade-enter,
 .fade-leave-to {
   transform: translateX(10px);
   opacity: 0;
+}
+
+.report-info > .row {
+  padding: 10px 0;
+}
+
+.report-info > .row h6,
+.report-info > .row h4 {
+  padding: 0;
+  margin: auto;
+}
+
+.report-info > .row.highlight:nth-child(even) {
+  background: #fff;
+}
+.report-info > .row.highlight:nth-child(odd) {
+  background: #fff;
+}
+
+.report-info > .row.highlight:hover {
+  background: #ccc;
+}
+
+.reviw-all-header {
+  margin: auto;
+  top: 4px;
+  position: relative;
+}
+
+.question-answer {
+  margin: 2rem 1rem;
+  padding: 1rem;
+  border-style: groove;
+}
+
+.question {
+  display: block;
+}
+
+.category-buttons {
+  display: block;
+}
+
+.category-buttons .col {
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 480px) {
+  .category-buttons {
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+
+  .categorized-cards .card-body {
+    padding: 0;
+  }
+
+  .categorized-cards .card-body .question-answer {
+    padding: 0;
+    margin: auto;
+  }
+
+  .container {
+    padding-right: 6px;
+    padding-left: 6px;
+  }
 }
 </style>

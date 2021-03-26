@@ -1,71 +1,3 @@
-<style scoped>
-.report-info > .row {
-  padding: 10px 0;
-}
-
-.report-info > .row h6,
-.report-info > .row h4 {
-  padding: 0;
-  margin: auto;
-}
-
-.report-info > .row.highlight:nth-child(even) {
-  background: #fff;
-}
-.report-info > .row.highlight:nth-child(odd) {
-  background: #fff;
-}
-
-.report-info > .row.highlight:hover {
-  background: #ccc;
-}
-
-.reviw-all-header {
-  margin: auto;
-  top: 4px;
-  position: relative;
-}
-
-.question-answer {
-  margin: 2rem 1rem;
-  padding: 1rem;
-  border-style: groove;
-}
-
-.question {
-  display: block;
-}
-
-.category-buttons {
-  display: block;
-}
-
-.category-buttons .col {
-  margin-bottom: 10px;
-}
-
-@media screen and (max-width: 480px) {
-  .category-buttons {
-    flex-wrap: wrap;
-    flex-direction: column;
-  }
-
-  .categorized-cards .card-body {
-    padding: 0;
-  }
-
-  .categorized-cards .card-body .question-answer {
-    padding: 0;
-    margin: auto;
-  }
-
-  .container {
-    padding-right: 6px;
-    padding-left: 6px;
-  }
-}
-</style>
-
 <template>
   <div class="app">
     <div class="app-body">
@@ -432,27 +364,19 @@ export default {
         } else if (vals[1] === 'REVIEW') {
         }
       }
-
-      /* if (this.$route.query.type === "review") {
-            
-              this.ansArray = JSON.parse(this.$route.query.data);
-              var url = "exams/" + this.$route.query.examId;
-              this.getExanById(url, "Not able to get Exam.");
-              this.openFeedback = false;
-            } else {
-              
-            }
-            **/
+      if (this.$route.query.type === 'review') {
+        this.ansArray = JSON.parse(this.$route.query.data)
+        const url = 'exams/' + this.$route.query.examId
+        this.getExanById(url, 'Not able to get Exam.')
+        this.openFeedback = false
+      }
     }
   },
-
-  mounted() {},
   methods: {
     createExamData() {
       this.ansArray = this.$auth.$storage.getUniversal('ANS_STR')
       this.exam = this.$auth.$storage.getUniversal('EXAM_DATA')
     },
-
     explation(index) {
       const id = 'explation-div-' + (index + 1)
       const x = document.getElementById(id)
@@ -462,7 +386,6 @@ export default {
         x.style.display = 'none'
       }
     },
-
     correctAns(question) {
       const correctAns = question.ans
       if (correctAns === 0) {
@@ -475,7 +398,6 @@ export default {
         return question.options.opt4
       }
     },
-
     userAns(index, question) {
       const userAns = this.ansArray[index].ans
       if (userAns === 'opt1') {
@@ -490,7 +412,6 @@ export default {
         return 'No Answer'
       }
     },
-
     calculateResult() {
       let correctAnswer = 0
       let notAttempted = 0
@@ -500,7 +421,6 @@ export default {
       let totalMarks = 0
       let wrongAnswer = 0
       let negativeMarks = 0
-
       for (let i = 0; i < this.exam.sections.length; i++) {
         const section = this.exam.sections[i]
         for (let j = 0; j < section.totalQuestion; j++) {
@@ -531,7 +451,6 @@ export default {
       this.wrongAnswer = wrongAnswer
       this.negativeMarks = negativeMarks.toFixed(2)
     },
-
     getAns(ansIndex) {
       if (ansIndex === 0) {
         return 'opt1'
@@ -544,7 +463,6 @@ export default {
         return 'opt4'
       }
     },
-
     getExanById(url, errMgs) {
       http
         .get(url)
@@ -558,7 +476,6 @@ export default {
           console.log(e)
         })
     },
-
     review(reviewValue) {
       if (reviewValue === 'ALL') {
         this.showAllAns = true
@@ -566,7 +483,6 @@ export default {
       } else {
         this.showAllAns = false
       }
-
       if (reviewValue === 'WRONG_ANSWER') {
         this.reviewValue = 'WRONG_ANSWER'
       } else if (reviewValue === 'No Answer') {
@@ -575,7 +491,6 @@ export default {
         this.reviewValue = 'CORRECT_ANSWER'
       }
     },
-
     getReviewValue(index, question) {
       const userAns = this.userAns(index, question)
       const correctAns = this.correctAns(question)
@@ -588,7 +503,6 @@ export default {
         return 'WRONG_ANSWER'
       }
     },
-
     getReviewTitle() {
       this.sectionScroll()
       if (this.reviewValue === 'WRONG_ANSWER') {
@@ -604,7 +518,6 @@ export default {
       }
       return 'Displaying All Answer'
     },
-
     updateExamResult() {
       http
         .get(url)
@@ -617,7 +530,6 @@ export default {
           console.log(e)
         })
     },
-
     sectionScroll() {
       if (window.matchMedia('(max-width: 480px)').matches) {
         window.scrollTo(0, 800)
@@ -625,7 +537,6 @@ export default {
         window.scrollTo(0, 200)
       }
     },
-
     getUserAnalytics() {
       this.loaded = false
       const graphData = {
@@ -634,7 +545,6 @@ export default {
         Incorrect: this.wrongAnswer,
         'Not Attempted': this.notAttempted
       }
-
       this.chartData = {
         labels: Object.keys(graphData), // ['Inactive User', 'Active User', 'Blacked User'],
         datasets: [
@@ -646,11 +556,9 @@ export default {
       }
       this.loaded = true
     },
-
     goTOLeaderBoard() {
       this.$router.push('/leaderboard/' + this.liveExamId)
     },
-
     convertResultTime(time24) {
       if (process.browser) {
         let hours = time24.substr(0, 2)
@@ -660,7 +568,6 @@ export default {
         return finalTime
       }
     },
-
     createExamDataByLiveExamReviewAPI(liveExamId, resultId) {
       this.$axios
         .get(
@@ -677,10 +584,9 @@ export default {
           this.getUserAnalytics()
         })
         .catch((e) => {
-          console.log(e)
+          this.$errorHandler('server', e)
         })
     },
-
     getToken() {
       let token = this.$auth.getToken('local')
       token = token.replace('Bearer ', '')
@@ -694,12 +600,80 @@ export default {
 .fade-enter-active {
   transition: all 0.3s ease;
 }
+
 .fade-leave-active {
   transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
 }
+
 .fade-enter,
 .fade-leave-to {
   transform: translateX(10px);
   opacity: 0;
+}
+
+.report-info > .row {
+  padding: 10px 0;
+}
+
+.report-info > .row h6,
+.report-info > .row h4 {
+  padding: 0;
+  margin: auto;
+}
+
+.report-info > .row.highlight:nth-child(even) {
+  background: #fff;
+}
+.report-info > .row.highlight:nth-child(odd) {
+  background: #fff;
+}
+
+.report-info > .row.highlight:hover {
+  background: #ccc;
+}
+
+.reviw-all-header {
+  margin: auto;
+  top: 4px;
+  position: relative;
+}
+
+.question-answer {
+  margin: 2rem 1rem;
+  padding: 1rem;
+  border-style: groove;
+}
+
+.question {
+  display: block;
+}
+
+.category-buttons {
+  display: block;
+}
+
+.category-buttons .col {
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 480px) {
+  .category-buttons {
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+
+  .categorized-cards .card-body {
+    padding: 0;
+  }
+
+  .categorized-cards .card-body .question-answer {
+    padding: 0;
+    margin: auto;
+  }
+
+  .container {
+    padding-right: 6px;
+    padding-left: 6px;
+  }
 }
 </style>

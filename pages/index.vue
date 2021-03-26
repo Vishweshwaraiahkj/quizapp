@@ -57,7 +57,8 @@ export default {
   name: 'Home',
   auth: false,
   components: {
-    HomeGrids
+    HomeGrids,
+    Carousel
   },
   data() {
     return {
@@ -81,7 +82,9 @@ export default {
           console.log(response)
           this.liveExams = response.data
         })
-        .catch((e) => {})
+        .catch((e) => {
+          this.$errorHandler('server', e)
+        })
       this.isLoading = false
     }
   }

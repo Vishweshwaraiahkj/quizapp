@@ -381,7 +381,7 @@ export default {
           this.user = response
         })
         .catch((e) => {
-          console.log(e)
+          this.$errorHandler('server', e)
         })
     },
     UpdateUserProfile() {
