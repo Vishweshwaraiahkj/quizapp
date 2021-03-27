@@ -1,5 +1,5 @@
 <template>
-  <b-row class="mainGrids">
+  <b-row class="w-100 mainGrids">
     <div
       v-for="(item, index) in filteredData"
       :key="item.id"
@@ -81,7 +81,9 @@ export default {
   margin: 2rem 0;
 }
 .mainGrids .col {
-  margin: 0.5rem;
+  max-width: 23%;
+  margin: 1%;
+  float: left;
   padding: 0;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.12);
 }

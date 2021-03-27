@@ -3,12 +3,12 @@
     <div v-if="isLoading" class="is_loading">Loading Data!</div>
     <b-row v-else>
       <Carousel />
-      <div>
+      <div class="mt-5">
         <h4>Take Exam Win Cash Prize</h4>
       </div>
       <HomeGrids :props-data="liveExams" :items-per-row="3" />
 
-      <div>
+      <div class="w-100">
         <b-jumbotron header-level="5">
           <template #lead>
             You can get here all previous year karnataka police constable
