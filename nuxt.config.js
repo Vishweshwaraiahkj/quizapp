@@ -57,8 +57,14 @@ export default {
     // https://auth.nuxtjs.org
     '@nuxtjs/auth',
     // proxy for CORS issues
-    '@nuxtjs/proxy'
+    '@nuxtjs/proxy',
+    // to add resources like scss variables etc
+    '@nuxtjs/style-resources'
   ],
+
+  styleResources: {
+    scss: ['~/assets/scss/variables.scss']
+  },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {

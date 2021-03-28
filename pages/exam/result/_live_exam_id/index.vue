@@ -168,7 +168,7 @@
                             {{ index + 1 }}.&nbsp;&nbsp;
                           </span>
                           <span
-                            class="font-weight-bold"
+                            class="font-weight-bold d-inline-block"
                             v-html="question.qun"
                           ></span>
                         </div>
@@ -272,7 +272,12 @@
                               </b-col>
                             </b-row>
 
-                            <b-row v-if="question.explanation !== ''">
+                            <b-row
+                              v-if="
+                                question.explanation &&
+                                question.explanation.trim !== ''
+                              "
+                            >
                               <b-col cols="12" class="text-left">
                                 <b-button
                                   class="btn-square"
@@ -289,7 +294,7 @@
                                 style="display: none"
                               >
                                 <b-card>
-                                  <p v-html="question.explanation"></p>
+                                  <p v-html="question.explanation.trim"></p>
                                 </b-card>
                               </div>
                             </b-row>
@@ -363,16 +368,13 @@ export default {
         }
       }
 
-      /* if (this.$route.query.type === "review") {
-            
-              this.ansArray = JSON.parse(this.$route.query.data);
-              var url = "exams/" + this.$route.query.examId;
-              this.getExanById(url, "Not able to get Exam.");
-              this.openFeedback = false;
-            } else {
-              
-            }
-            **/
+      // if (this.$route.query.type === 'review') {
+      //   this.ansArray = JSON.parse(this.$route.query.data)
+      //   var url = 'exams/' + this.$route.query.examId
+      //   this.getExanById(url, 'Not able to get Exam.')
+      //   this.openFeedback = false
+      // } else {
+      // }
     }
   },
 
