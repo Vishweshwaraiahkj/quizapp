@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-modal id="login-modal" ref="login-modal">
+    <b-modal id="login-modal" ref="login-modal" hide-header hide-footer>
       <b-container class="mt-3">
         <LoginAuth end-url="exam/started" />
       </b-container>
@@ -137,7 +137,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .details_banner {
   background-size: cover;
   background-color: rgba(45, 24, 70, 1);
@@ -145,38 +145,44 @@ export default {
   background-position: center center;
   opacity: 0.75;
 }
+
 .company_logo {
   float: left;
   width: 120px;
   height: 120px;
   line-height: 104px;
   margin-right: 1rem;
+
+  img {
+    position: relative;
+    width: 100%;
+    background-color: #fff;
+    padding: 8px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    margin-right: 16px;
+  }
 }
-.company_logo img {
-  position: relative;
-  width: 100%;
-  background-color: #fff;
-  padding: 8px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
-  margin-right: 16px;
-}
+
 .banner_details {
   color: #fff;
   flex: 1;
+
+  h1,
+  h3 {
+    background: #000;
+    opacity: 0.7;
+    border-radius: 5px;
+    padding: 0 0.75rem;
+    display: inline-block;
+    margin-top: 0.5rem;
+  }
 }
-.banner_details h1,
-.banner_details h3 {
-  background: rgb(0 0 0 / 68%);
-  border-radius: 5px;
-  padding: 0 0.75rem;
-  display: inline-block;
-  margin-top: 0.5rem;
-}
+
 .question_brief,
 .question_desc {
   border-radius: 6px;
   background-color: #fff;
-  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 18%);
+  box-shadow: 0 2px 4px 0 #0003;
   margin-bottom: 1.25rem;
   border-bottom: 1px solid #e0e0e0;
   padding: 1rem;
@@ -211,6 +217,17 @@ li.clearfix {
 }
 li.clearfix .details {
   margin-left: 1rem;
+}
+
+#login-modal {
+  .modal-content {
+    background: transparent;
+    border: none;
+
+    .loginForm {
+      height: 70vh;
+    }
+  }
 }
 
 @media only screen and (max-width: 1024px) {

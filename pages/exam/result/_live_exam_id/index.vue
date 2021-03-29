@@ -66,7 +66,6 @@
               </b-col>
             </b-row>
           </div>
-          <div class=""></div>
         </div>
 
         <div>

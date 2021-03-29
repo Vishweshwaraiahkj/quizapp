@@ -2,71 +2,112 @@
   <div class="app">
     <div class="app-body">
       <b-container>
-        <div class="d-md-flex my-3">
-          <div class="report-info card align-self-stretch col-xs-12 col-md-8">
-            <b-row class="highlight bg-blue">
-              <b-col>
-                <h4>Exam Name :{{ liveExamObj.examName }}</h4>
-              </b-col>
-            </b-row>
-            <b-row class="highlight">
-              <b-col>
-                <h6>Total Question:</h6>
-              </b-col>
-              <b-col class="text-right">
-                <h6>{{ totalQun }}</h6>
-              </b-col>
-            </b-row>
-            <b-row class="highlight">
-              <b-col>
-                <h6>Correct Answers:</h6>
-              </b-col>
-              <b-col class="text-right">
-                <h6>{{ correctAnswer }}</h6>
-              </b-col>
-            </b-row>
-            <b-row class="highlight">
-              <b-col>
-                <h6>Incorrect Answers :</h6>
-              </b-col>
-              <b-col class="text-right">
-                <h6>{{ wrongAnswer }}</h6>
-              </b-col>
-            </b-row>
-            <b-row class="highlight">
-              <b-col>
-                <h6>Negative marks:</h6>
-              </b-col>
-              <b-col class="text-right">
-                <h6>-{{ negativeMarks }}</h6>
-              </b-col>
-            </b-row>
-            <b-row class="highlight">
-              <b-col>
-                <h6>Not Answered :</h6>
-              </b-col>
-              <b-col class="text-right">
-                <h6>{{ notAnswered }}</h6>
-              </b-col>
-            </b-row>
-            <b-row class="highlight">
-              <b-col>
-                <h6>Not Attempted:</h6>
-              </b-col>
-              <b-col class="text-right">
-                <h6>{{ notAttempted }}</h6>
-              </b-col>
-            </b-row>
-            <b-row class="highlight">
-              <b-col>
-                <h4>Total Marks:</h4>
-              </b-col>
-              <b-col class="text-right">
-                <h4>{{ (totalMarks - negativeMarks).toFixed(2) }}</h4>
-              </b-col>
-            </b-row>
+        <div class="d-md-flex resultsContainer">
+          <div class="titleBox">
+            <h1>Thank you for attempting {{ liveExamObj.examName }}</h1>
           </div>
-          <div class=""></div>
+          <div class="d-md-flex">
+            <div class="resultsBox">
+              <div>
+                <h3>Rank</h3>
+                <p>Will be announced at 9:10pm April 3rd, 2021</p>
+              </div>
+            </div>
+            <div class="resultsBox">
+              <div class="detailsBox">
+                <div>
+                  <p>Score</p>
+                  <p>5.00/100</p>
+                </div>
+                <div>
+                  <p>Attempts</p>
+                  <p>10</p>
+                </div>
+                <div>
+                  <p>Apeed</p>
+                  <p>13Q/min</p>
+                </div>
+                <div>
+                  <p>Accuracy</p>
+                  <p>40%</p>
+                </div>
+              </div>
+            </div>
+            <div class="resultsBox">
+              <div>
+                <p>Correct: {{ correctAnswer }}</p>
+                <p>InCorrect: {{ wrongAnswer }}</p>
+                <p>Skipped: {{ notAttempted }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="announcementBox">
+            <h3>Details will be announced at 9:10pm April 3rd, 2021</h3>
+          </div>
+        </div>
+
+        <div class="report-info card align-self-stretch col-xs-12 col-md-8">
+          <b-row class="highlight bg-blue">
+            <b-col>
+              <h4>Exam Name :{{ liveExamObj.examName }}</h4>
+            </b-col>
+          </b-row>
+          <b-row class="highlight">
+            <b-col>
+              <h6>Total Question:</h6>
+            </b-col>
+            <b-col class="text-right">
+              <h6>{{ totalQun }}</h6>
+            </b-col>
+          </b-row>
+          <b-row class="highlight">
+            <b-col>
+              <h6>Correct Answers:</h6>
+            </b-col>
+            <b-col class="text-right">
+              <h6>{{ correctAnswer }}</h6>
+            </b-col>
+          </b-row>
+          <b-row class="highlight">
+            <b-col>
+              <h6>Incorrect Answers :</h6>
+            </b-col>
+            <b-col class="text-right">
+              <h6>{{ wrongAnswer }}</h6>
+            </b-col>
+          </b-row>
+          <b-row class="highlight">
+            <b-col>
+              <h6>Negative marks:</h6>
+            </b-col>
+            <b-col class="text-right">
+              <h6>-{{ negativeMarks }}</h6>
+            </b-col>
+          </b-row>
+          <b-row class="highlight">
+            <b-col>
+              <h6>Not Answered :</h6>
+            </b-col>
+            <b-col class="text-right">
+              <h6>{{ notAnswered }}</h6>
+            </b-col>
+          </b-row>
+          <b-row class="highlight">
+            <b-col>
+              <h6>Not Attempted:</h6>
+            </b-col>
+            <b-col class="text-right">
+              <h6>{{ notAttempted }}</h6>
+            </b-col>
+          </b-row>
+          <b-row class="highlight">
+            <b-col>
+              <h4>Total Marks:</h4>
+            </b-col>
+            <b-col class="text-right">
+              <h4>{{ (totalMarks - negativeMarks).toFixed(2) }}</h4>
+            </b-col>
+          </b-row>
         </div>
 
         <div>
@@ -601,7 +642,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .fade-enter-active {
   transition: all 0.3s ease;
 }
@@ -659,6 +700,44 @@ export default {
 
 .category-buttons .col {
   margin-bottom: 10px;
+}
+
+.resultsContainer {
+  background: #007bff;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  flex-direction: column;
+
+  .titleBox,
+  .announcementBox {
+    color: #fff;
+    text-align: center;
+  }
+
+  .resultsBox {
+    width: 33.333%;
+    padding: 1rem;
+
+    & > div {
+      padding: 1rem;
+      background: #fff;
+      height: 100%;
+
+      h3 {
+        font-weight: bold;
+      }
+    }
+
+    .detailsBox {
+      display: inline-block;
+      width: 100%;
+
+      & > div {
+        width: 50%;
+        float: left;
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 480px) {
