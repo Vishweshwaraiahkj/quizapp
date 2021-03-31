@@ -26,7 +26,7 @@
         </h1>
       </template>
     </b-row>
-    <button @click="saveExamResult">test</button>
+    <button class="dataBox row m-auto" @click="saveExamResult">test</button>
   </b-container>
 </template>
 
@@ -291,7 +291,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .ExamBoard {
   display: block;
   border-radius: 0;
@@ -300,21 +300,21 @@ export default {
   border-bottom: 1px solid #e0e0e0;
   padding: 1rem;
   margin: 2rem auto;
-}
 
-.ExamBoard .row {
-  padding: 0 2rem;
-}
+  .row {
+    padding: 0 2rem;
+  }
 
-.custom-progress-bar {
-  width: 100%;
-  margin: 1rem 0;
-  background: #fdeeee;
-  padding: 0.5rem;
-}
+  .custom-progress-bar {
+    width: 100%;
+    margin: 1rem 0;
+    background: #fdeeee;
+    padding: 0.5rem;
 
-.custom-progress-bar > div:first-child {
-  padding-right: 0.625rem;
+    & > div:first-child {
+      padding-right: 0.625rem;
+    }
+  }
 }
 
 @media only screen and (max-width: 640px) {

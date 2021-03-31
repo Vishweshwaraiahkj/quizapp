@@ -1,85 +1,84 @@
 <template>
-  <div>
-    <b-btn pill variant="outline-light" class="d-flex m-auto back_to_home_btn">
-      <nuxt-link to="/">Back to Home</nuxt-link>
-    </b-btn>
-    <div class="loginForm">
-      <div class="bg"></div>
-      <b-form v-if="show" @submit.prevent="userLogin" @reset.prevent="onReset">
-        <div class="inputsContainer">
-          <header>
-            <img
-              src="https://assets.codepen.io/3931482/internal/avatars/users/default.png?format=auto&height=80&version=1592223909&width=80"
-            />
-          </header>
-          <div class="inputs">
-            <b-form-group
-              v-if="isRegister"
-              id="input-group-0"
-              label-for="input-0"
-            >
-              <b-form-input
-                id="input-0"
-                v-model="form.name"
-                type="text"
-                required
-                placeholder="Enter name"
-              ></b-form-input>
-            </b-form-group>
-            <b-form-group
-              id="input-group-1"
-              label-for="input-1"
-              :description="
-                isRegister ? 'Email doesnt exists, please register!' : ''
-              "
-            >
-              <b-form-input
-                id="input-1"
-                v-model="form.email"
-                type="email"
-                required
-                placeholder="Enter email"
-              ></b-form-input>
-            </b-form-group>
-            <b-form-group id="input-group-2" label-for="input-2">
-              <b-form-input
-                id="input-2"
-                v-model="form.password"
-                type="password"
-                required
-                placeholder="Enter password"
-              ></b-form-input>
-            </b-form-group>
-            <input type="hidden" name="grant_type" :value="grantType" />
-            <b-form-group v-if="!isRegister" id="input-group-4">
-              <p><a href="#">Forgot password?</a></p>
-            </b-form-group>
-          </div>
+  <div class="loginForm">
+    <div class="bg"></div>
+    <b-form v-if="show" @submit.prevent="userLogin" @reset.prevent="onReset">
+      <div class="inputsContainer">
+        <b-btn pill variant="outline-light" class="d-flex back_to_home_btn">
+          <nuxt-link to="/">Back to Home</nuxt-link>
+        </b-btn>
+        <header>
+          <img
+            src="https://assets.codepen.io/3931482/internal/avatars/users/default.png?format=auto&height=80&version=1592223909&width=80"
+          />
+        </header>
+        <div class="inputs">
+          <b-form-group
+            v-if="isRegister"
+            id="input-group-0"
+            label-for="input-0"
+          >
+            <b-form-input
+              id="input-0"
+              v-model="form.name"
+              type="text"
+              required
+              placeholder="Enter name"
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group
+            id="input-group-1"
+            label-for="input-1"
+            :description="
+              isRegister ? 'Email doesnt exists, please register!' : ''
+            "
+          >
+            <b-form-input
+              id="input-1"
+              v-model="form.email"
+              type="email"
+              required
+              placeholder="Enter email"
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group id="input-group-2" label-for="input-2">
+            <b-form-input
+              id="input-2"
+              v-model="form.password"
+              type="password"
+              required
+              placeholder="Enter password"
+            ></b-form-input>
+          </b-form-group>
+          <input type="hidden" name="grant_type" :value="grantType" />
+          <b-form-group v-if="!isRegister" id="input-group-4">
+            <p><a href="#">Forgot password?</a></p>
+          </b-form-group>
         </div>
-        <footer>
-          <!-- use type="reset" variant="danger" to add a Reset button -->
-          <b-button class="mb-2" type="submit" variant="primary">
-            <span v-if="isRegister">Register</span>
-            <span v-else>Login</span>
-          </b-button>
-          <a v-if="!isRegister" @click="register(true)">
-            No account, then register here!
-          </a>
-          <a v-else @click="register(false)">Already Registered? Login here!</a>
-          <ClientOnly>
-            <VFacebookLogin
-              v-model="model"
-              :use-alt-logo="true"
-              app-id="1953752748051856"
-              @sdk-init="handleSdkInit"
-              @login="fbLogin"
-              @logout="fbLogout"
-              @click="fbClick"
-            ></VFacebookLogin>
-          </ClientOnly>
-        </footer>
-      </b-form>
-    </div>
+      </div>
+      <footer>
+        <!-- use type="reset" variant="danger" to add a Reset button -->
+        <b-button class="mb-2 btn-block" type="submit" variant="primary">
+          <span v-if="isRegister">Register</span>
+          <span v-else>Login</span>
+        </b-button>
+        <a v-if="!isRegister" @click="register(true)">
+          No account, then register here!
+        </a>
+        <a v-else @click="register(false)">Already Registered? Login here!</a>
+        <ClientOnly>
+          <VFacebookLogin
+            v-model="model"
+            class="btn-block"
+            :use-alt-logo="true"
+            app-id="1953752748051856"
+            @sdk-init="handleSdkInit"
+            @login="fbLogin"
+            @logout="fbLogout"
+            @click="fbClick"
+          ></VFacebookLogin>
+        </ClientOnly>
+      </footer>
+    </b-form>
   </div>
 </template>
 <script>
@@ -198,7 +197,7 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .loginForm {
   overflow-y: auto;
   background-color: #fff;
@@ -212,121 +211,96 @@ export default {
   position: relative;
   overflow: hidden;
   box-shadow: 0 6px 31px -2px rgba(0, 0, 0, 0.3);
-}
 
-a {
-  text-decoration: none;
-  color: #000;
-}
+  a {
+    text-decoration: none;
+    color: #000;
+  }
 
-p {
-  font-size: 13px;
-  color: #333;
-  line-height: 2;
-}
+  p {
+    font-size: 13px;
+    color: #333;
+    line-height: 2;
+  }
 
-.light {
-  text-align: right;
-  color: #fff;
-}
+  button.back_to_home_btn {
+    background: transparent;
+    max-width: 200px;
+    margin: auto;
 
-.light a {
-  color: #fff;
-}
+    a {
+      margin: auto;
+    }
+  }
 
-.bg {
-  width: 100%;
-  height: 95%;
-  background: #b8dff3;
-  position: absolute;
-  top: -5em;
-  left: 0;
-  right: 0;
-  margin: auto;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  clip-path: ellipse(69% 46% at 48% 46%);
-}
+  form {
+    .inputsContainer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      text-align: center;
+      padding: 2em;
+    }
 
-form .inputsContainer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  text-align: center;
-  padding: 2em;
-}
+    input {
+      width: 100%;
+      padding: 13px 15px;
+      margin: 0.7em auto;
+      border-radius: 100px;
+      border: none;
+      background: #257aa6;
+      font-family: 'Poppins', sans-serif;
+      outline: none;
+      color: #fff;
+      height: auto;
 
-header {
-  width: 100%;
-  min-height: 120px;
-  margin: 1em auto;
-}
+      &::placeholder {
+        color: #fff;
+        font-size: 13px;
+      }
 
-form input {
-  width: 100%;
-  padding: 13px 15px;
-  margin: 0.7em auto;
-  border-radius: 100px;
-  border: none;
-  background: #257aa6;
-  font-family: 'Poppins', sans-serif;
-  outline: none;
-  color: #fff;
-  height: auto;
-}
+      &:focus {
+        color: #000;
+        font-size: 13px;
+      }
+    }
+  }
 
-input::placeholder {
-  color: #fff;
-  font-size: 13px;
-}
+  header {
+    width: 100%;
+    min-height: 120px;
+    margin: 1em auto;
+  }
 
-input:focus {
-  color: #000;
-  font-size: 13px;
-}
+  .inputs {
+    margin: auto;
+  }
 
-.inputs {
-  margin: auto;
-}
+  footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2em;
+    text-align: center;
+  }
 
-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 2em;
-  text-align: center;
-}
-
-button {
-  width: 100%;
-  padding: 13px 15px;
-  border-radius: 100px;
-  border: none;
-  background: #257aa6;
-  font-family: 'Poppins', sans-serif;
-  outline: none;
-  color: #fff;
-}
-
-button.back_to_home_btn {
-  background: transparent;
-  max-width: 200px;
-}
-
-button.back_to_home_btn a {
-  margin: auto;
-}
-
-.fb_button {
-  background-image: linear-gradient(#4c69ba, #3b55a0);
-}
-
-.facebook_button button {
-  background: none transparent;
+  .bg {
+    width: 100%;
+    height: 95%;
+    background: #b8dff3;
+    position: absolute;
+    top: -5em;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    clip-path: ellipse(69% 46% at 48% 46%);
+  }
 }
 
 @media screen and (max-width: 640px) {

@@ -1,3 +1,4 @@
+// eslint-disable
 body {
     font-size  : 0.875rem;
     font-family: sans-serif;
@@ -26,4 +27,30 @@ body {
     align-items    : center;
     justify-content: center;
     height         : 80vh;
+}
+
+@mixin default-btn() {
+    max-height     : 45px;
+    padding        : 0.75rem 1rem;
+    border-radius  : 2rem;
+    border         : none;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+}
+
+button {
+    @include default-btn();
+
+    &.btn-primary {
+        background: #257aa6;
+        color     : #fff;
+    }
+}
+
+button.v-facebook-login {
+    @include default-btn();
+
+    background: #257aa6;
+    color     : #fff;
 }

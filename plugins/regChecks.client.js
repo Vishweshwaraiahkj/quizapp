@@ -6,7 +6,7 @@ export default async ({ app }) => {
       'click',
       'scroll',
       'keypress',
-      'onload',
+      'load',
       'mousedown',
       'mouseleave'
     ]
@@ -33,7 +33,14 @@ export default async ({ app }) => {
         )
         .then((response) => {
           shouldLogout = true
-          logoutTimer = setTimeout(logoutUser, 1 * 60 * 1000)
+          const r = confirm(
+            'You will be loggedout in 1 minute due to no activity!'
+          )
+          if (r === true && warningZone) {
+            logoutTimer = setTimeout(logoutUser, 1 * 60 * 1000)
+          } else {
+            resetTimer()
+          }
         })
         .catch((e) => {
           shouldLogout = true

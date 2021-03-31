@@ -3,7 +3,7 @@
     <div class="app-body">
       <b-container>
         <div class="d-md-flex resultsContainer">
-          <div class="titleBox">
+          <div class="titleBox mt-4">
             <h1>Thank you for attempting {{ liveExamObj.examName }}</h1>
           </div>
           <div class="d-md-flex">
@@ -41,7 +41,7 @@
               </div>
             </div>
           </div>
-          <div class="announcementBox">
+          <div class="announcementBox mb-4">
             <h3>Details will be announced at 9:10pm April 3rd, 2021</h3>
           </div>
         </div>
@@ -718,10 +718,19 @@ export default {
     width: 33.333%;
     padding: 1rem;
 
+    &:first-child {
+      margin-left: 5%;
+    }
+
+    &:last-child {
+      margin-right: 5%;
+    }
+
     & > div {
       padding: 1rem;
       background: #fff;
       height: 100%;
+      border-radius: 0.625rem;
 
       h3 {
         font-weight: bold;
