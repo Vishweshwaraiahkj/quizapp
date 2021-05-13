@@ -32,7 +32,7 @@
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.11.0",
     "defu": "^3.2.2",
-    "nuxt": "^2.15.4",
+    "nuxt": "^2.15.6",
     "vue-facebook-login-component": "^4.0.1"
   },
   "devDependencies": {
