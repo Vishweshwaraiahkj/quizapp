@@ -14,6 +14,11 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
 
+  loading: {
+    color: 'blue',
+    height: '3px'
+  },
+
   // used for local https security
   // server: {
   //   https: {

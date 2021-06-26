@@ -9,30 +9,34 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <nuxt-link to="/todos">To-Dos</nuxt-link>
+          <b-nav-item>
+            <nuxt-link to="/todos">To-Dos</nuxt-link>
+          </b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <div v-if="$auth.loggedIn">
-            <b-nav-item-dropdown right>
-              <!-- Using 'button-content' slot -->
-              <template #button-content>
-                <span>
-                  {{ getUserName }}
-                </span>
-              </template>
-              <b-dropdown-item>
-                <nuxt-link to="/user/profile">Profile</nuxt-link>
-              </b-dropdown-item>
-              <b-dropdown-item @click="logout">Sign Out</b-dropdown-item>
-            </b-nav-item-dropdown>
-          </div>
-          <div v-else class="ml-2">
-            <b-btn pill variant="outline-light">
-              <nuxt-link to="/login">Login</nuxt-link>
-            </b-btn>
-          </div>
+          <b-nav-item>
+            <div v-if="$auth.loggedIn">
+              <b-nav-item-dropdown right>
+                <!-- Using 'button-content' slot -->
+                <template #button-content>
+                  <span>
+                    {{ getUserName }}
+                  </span>
+                </template>
+                <b-dropdown-item>
+                  <nuxt-link to="/user/profile">Profile</nuxt-link>
+                </b-dropdown-item>
+                <b-dropdown-item @click="logout">Sign Out</b-dropdown-item>
+              </b-nav-item-dropdown>
+            </div>
+            <div v-else class="ml-2">
+              <b-btn pill variant="outline-light">
+                <nuxt-link to="/login">Login</nuxt-link>
+              </b-btn>
+            </div>
+          </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>

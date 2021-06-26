@@ -52,7 +52,8 @@ export default {
     examMarks: 0,
     obtainedMarks: 0,
     percentage: 0,
-    timerCount: 60
+    timerCount: 60,
+    isLoading: true
   }),
   computed: {
     examStartTime() {
@@ -62,14 +63,10 @@ export default {
       const data = this.$store.state.exams.examFullData
         ? this.$store.state.exams.examFullData
         : {}
-      return data.isAxiosError ? false : data
-    },
-    isLoading() {
-      if (Object.keys(this.examData).length > 0) {
-        return false
-      } else {
-        return true
+      if (Object.keys(data).length) {
+        isLoading = false
       }
+      return data.isAxiosError ? false : data
     },
     currentQuestion() {
       const i = this.index
