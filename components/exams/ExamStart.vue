@@ -249,8 +249,10 @@ export default {
       let liveExamId
       let uData
       if (process.browser) {
-        liveExamId = this.$auth.$storage.getUniversal('Live_Exam_Info_Object')
-          .liveExamInfoId
+        const liveExamInfo = this.$auth.$storage.getUniversal(
+          'Live_Exam_Info_Object'
+        )
+        liveExamId = liveExamInfo.liveExamInfoId
         uData = this.$auth.$storage.getUniversal('USER_DATA')
       }
 

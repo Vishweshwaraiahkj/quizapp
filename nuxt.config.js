@@ -43,8 +43,33 @@ export default {
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/stylelint
-    '@nuxtjs/stylelint-module'
+    '@nuxtjs/stylelint-module',
+    // https://google-analytics.nuxtjs.org
+    '@nuxtjs/google-analytics',
+    // .env support
+    '@nuxtjs/dotenv'
   ],
+
+  // this code is related to google analytics
+  googleAnalytics: {
+    // Use as fallback if no runtime config is provided
+    id: process.env.GOOGLE_ANALYTICS_ID
+  },
+  publicRuntimeConfig: {
+    googleAnalytics: {
+      id: process.env.GOOGLE_ANALYTICS_ID,
+      asyncID: async (context) => { 
+        /* do something */
+        return process.env.GOOGLE_ANALYTICS_ID 
+      },
+      debug: {
+        enabled: true,
+        sendHitTask: true
+      },
+      checkDuplicatedScript: true,
+      disableScriptLoader: true
+    }
+  },
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
