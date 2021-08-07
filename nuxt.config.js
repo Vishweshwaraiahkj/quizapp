@@ -23,6 +23,11 @@ export default {
     
   },
 
+  loading: {
+    color: 'blue',
+    height: '3px'
+  },
+
   // used for local https security
   // server: {
   //   https: {
@@ -49,8 +54,28 @@ export default {
     
     // https://go.nuxtjs.dev/stylelint
     '@nuxtjs/stylelint-module',
-
   ],
+
+  // this code is related to google analytics
+  googleAnalytics: {
+    // Use as fallback if no runtime config is provided
+    id: process.env.GOOGLE_ANALYTICS_ID
+  },
+  publicRuntimeConfig: {
+    googleAnalytics: {
+      id: process.env.GOOGLE_ANALYTICS_ID,
+      asyncID: async (context) => { 
+        /* do something */
+        return process.env.GOOGLE_ANALYTICS_ID 
+      },
+      debug: {
+        enabled: true,
+        sendHitTask: true
+      },
+      checkDuplicatedScript: true,
+      disableScriptLoader: true
+    }
+  },
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [

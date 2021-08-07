@@ -50,13 +50,12 @@ export default {
       this.$axios
         .get('/landing/live-exam')
         .then((response) => {
-          console.log(response)
+          this.isLoading = false
           this.liveExams = response.data
         })
         .catch((e) => {
           this.$errorHandler('server', e)
         })
-      this.isLoading = false
     }
   }
 }
