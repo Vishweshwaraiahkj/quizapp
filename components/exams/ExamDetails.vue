@@ -108,6 +108,7 @@ export default {
         this.$refs['login-modal'].show()
       }
     },
+    
     getLiveExamInfoById(id) {
       this.$axios
         .get('/public/liveExamiInfo/' + id)

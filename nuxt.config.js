@@ -3,15 +3,24 @@
 // import fs from 'fs'
 
 export default {
+
+  server: {     
+   // port: 3000, // default: 3000     
+    host: '192.168.1.9', // default: localhost   
+  },
+
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: 'quizapp',
+    title: 'MyExamAim >> Free Online Mock Test',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
+      { hid: 'description', name: 'description',
+       content: 'MyExamAim Karnataka Police Constable (PC) Previous Year Question Papers Online Test' }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }]
+ 
+    
   },
 
   // used for local https security
@@ -36,9 +45,11 @@ export default {
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
     // https://go.nuxtjs.dev/eslint
-    '@nuxtjs/eslint-module',
+    //'@nuxtjs/eslint-module',
+    
     // https://go.nuxtjs.dev/stylelint
-    '@nuxtjs/stylelint-module'
+    '@nuxtjs/stylelint-module',
+
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -56,8 +67,31 @@ export default {
     // proxy for CORS issues
     '@nuxtjs/proxy',
     // to add resources like scss variables etc
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
+
+    '@nuxtjs/google-analytics'
+    
   ],
+
+  googleAnalytics: {
+    id: 'UA-148603757-1',
+    debug: {
+      enabled: false, // default value
+      trace: false, // default value
+      sendHitTask: true // default value
+    }
+  },
+  
+  publicRuntimeConfig: {
+    googleAnalytics: {
+      id:'UA-148603757-1',
+       debug: {
+    enabled: false, // default value
+    trace: false, // default value
+    sendHitTask: true // default value
+  }
+    }
+  },
 
   styleResources: {
     scss: ['~/assets/scss/variables.scss', '~assets/styles/globals.scss']
@@ -65,7 +99,7 @@ export default {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseURL: 'http://localhost:5000/',
+    baseURL: 'http://myexamaim-env.eba-33wdzvt4.us-east-2.elasticbeanstalk.com/',
     retry: { retries: 3 }
   },
 

@@ -7,11 +7,32 @@
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-      <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-          <nuxt-link to="/todos">To-Dos</nuxt-link>
-        </b-navbar-nav>
-
+<b-collapse id="nav-collapse" is-nav>
+  <b-navbar-nav class="navbar-css">
+        <b-nav-item >
+          <nuxt-link to="/"> Home</nuxt-link> 
+        </b-nav-item>
+        <b-nav-item >
+         <nuxt-link to="/mini-exam"> Mini Exams</nuxt-link> 
+        </b-nav-item>
+        <!--
+        <b-nav-item >
+          <nuxt-link to="/"> Previous Year Question Papers </nuxt-link> 
+        </b-nav-item>
+        -->
+        <b-nav-item >
+          <nuxt-link to="/videos"> Video Tutorials </nuxt-link> 
+        </b-nav-item>  
+         <b-nav-item >
+           <nuxt-link to="/about"> About Us </nuxt-link> 
+          </b-nav-item >
+          <b-nav-item >  
+           <nuxt-link to="/privacy-policy"> Privacy Policy </nuxt-link> 
+          </b-nav-item >   
+          <b-nav-item > 
+           <nuxt-link to="/contact"> Contact Us </nuxt-link> 
+        </b-nav-item>
+ </b-navbar-nav>
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <div v-if="$auth.loggedIn">
@@ -30,7 +51,7 @@
           </div>
           <div v-else class="ml-2">
             <b-btn pill variant="outline-light">
-              <nuxt-link to="/login">Login</nuxt-link>
+            <!--  <nuxt-link class="navbar-css" to="/login">Login</nuxt-link> -->
             </b-btn>
           </div>
         </b-navbar-nav>
@@ -71,5 +92,15 @@ export default {
 <style scoped>
 .customNavBar {
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.12);
+}
+
+.navbar-css{
+  font-weight: 600;
+   font-size: 20px;
+    
+}
+
+.navbar-css a {
+color: #20ab20;
 }
 </style>
