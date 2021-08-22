@@ -2,89 +2,70 @@
   <div class="app">
     <div class="app-body">
       <b-container>
-        <div class="d-md-flex my-3">
-          <div class="report-info card align-self-stretch col-xs-12 col-md-8">
-            <b-row class="highlight bg-blue">
-              <b-col>
-                <h4>Exam Name :{{ liveExamObj.examName }}</h4>
-              </b-col>
-            </b-row>
-            <b-row class="highlight">
-              <b-col>
-                <h6>Total Question:</h6>
-              </b-col>
-              <b-col class="text-right">
-                <h6>{{ totalQun }}</h6>
-              </b-col>
-            </b-row>
-            <b-row class="highlight">
-              <b-col>
-                <h6>Correct Answers:</h6>
-              </b-col>
-              <b-col class="text-right">
-                <h6>{{ correctAnswer }}</h6>
-              </b-col>
-            </b-row>
-            <b-row class="highlight">
-              <b-col>
-                <h6>Incorrect Answers :</h6>
-              </b-col>
-              <b-col class="text-right">
-                <h6>{{ wrongAnswer }}</h6>
-              </b-col>
-            </b-row>
-            <b-row class="highlight">
-              <b-col>
-                <h6>Negative marks:</h6>
-              </b-col>
-              <b-col class="text-right">
-                <h6>-{{ negativeMarks }}</h6>
-              </b-col>
-            </b-row>
-            <b-row class="highlight">
-              <b-col>
-                <h6>Not Answered :</h6>
-              </b-col>
-              <b-col class="text-right">
-                <h6>{{ notAnswered }}</h6>
-              </b-col>
-            </b-row>
-            <b-row class="highlight">
-              <b-col>
-                <h6>Not Attempted:</h6>
-              </b-col>
-              <b-col class="text-right">
-                <h6>{{ notAttempted }}</h6>
-              </b-col>
-            </b-row>
-            <b-row class="highlight">
-              <b-col>
-                <h4>Total Marks:</h4>
-              </b-col>
-              <b-col class="text-right">
-                <h4>{{ (totalMarks - negativeMarks).toFixed(2) }}</h4>
-              </b-col>
-            </b-row>
-          </div>
-        </div>
+      <div class="result-div">
+        
+           <b-card
+                border-variant="success"
+                :header="exam.name"
+                header-bg-variant="success"
+                header-text-variant="white"
+              >
+                  <b-card-text>
+                   <div class="resultInfo">     
+                      <b-row >
+                            <b-col cols="8">
+                            Total Question:
+                            </b-col>
+                            <b-col>
+                            {{ totalQun }}
+                            </b-col>
+                      </b-row>
+                      <b-row >
+                        <b-col cols="8">
+                          Correct Answers:
+                        </b-col>
+                        <b-col>
+                            {{ correctAnswer }}
+                        </b-col>
+                      </b-row>
+                      <b-row>
+                        <b-col cols="8">
+                      Incorrect Answers :
+                        </b-col>
+                        <b-col >
+                          {{ wrongAnswer }}
+                        </b-col>
+                      </b-row>
+                    
+                      <b-row >
+                        <b-col cols="8">
+                            Not Answered :
+                        </b-col>
+                        <b-col >
+                        {{ notAnswered }}
+                        </b-col>
+                      </b-row>
+                      <b-row >
+                        <b-col cols="8">
+                          Not Attempted:
+                        </b-col>
+                        <b-col >
+                        {{ notAttempted }}
+                        </b-col>
+                      </b-row>
+                      <b-row >
+                        <b-col cols="8">
+                          Total Marks:
+                        </b-col>
+                        <b-col >
+                          {{ (totalMarks - negativeMarks).toFixed(0) }}
+                        </b-col>
+                      </b-row>
+                   </div>
+                  </b-card-text>
+             </b-card>
 
-        <div>
-          <b-card>
-            <b>
-              Result will be declared at
-              {{ convertResultTime(liveExamObj.examResultTime) }}
-              {{ liveExamObj.examDate }}
-            </b>
-            <div>
-              <b-skeleton animation="throb" width="85%"></b-skeleton>
-              <b-skeleton animation="throb" width="55%"></b-skeleton>
-              <b-skeleton animation="throb" width="45%"></b-skeleton>
-              <b-skeleton animation="throb" width="35%"></b-skeleton>
-            </div>
-            <button @click="goTOLeaderBoard()">Leaderboard</button>
-          </b-card>
-        </div>
-
+      </div>
         <b-row class="d-md-flex category-buttons">
           <b-col>
             <b-button
@@ -164,7 +145,7 @@
                       >
                         <div class="question p-2">
                           <span class="font-weight-bold">
-                            {{ index + 1 }}.&nbsp;&nbsp;
+                            {{ index + 1 }})&nbsp;&nbsp;
                           </span>
                           <span
                             class="font-weight-bold d-inline-block"
@@ -174,7 +155,7 @@
                         <div class="answers1 p-2">
                           <div class="row">
                             <div class="col-sm-6">
-                              <span>1.&nbsp;</span>
+                              <span >1.&nbsp;</span>
                               <span v-html="question.options.opt1"></span>
                             </div>
                             <div class="col-sm-6">
@@ -220,7 +201,7 @@
                                   </b-col>
                                   <b-col>
                                     <img
-                                      src="/img/exams/correct.png"
+                                      src="~/assets/img/correct.png"
                                       height="25"
                                       width="25"
                                     />
@@ -251,7 +232,7 @@
                                   </b-col>
                                   <b-col>
                                     <img
-                                      src="/img/exams/wrong.png"
+                                      src="~/assets/img/wrong.png"
                                       height="25"
                                       width="25"
                                     />
@@ -315,6 +296,7 @@
 <script>
 export default {
   name: 'ExamResult',
+  auth: false,
 
   components: {},
 
@@ -341,44 +323,13 @@ export default {
 
   created() {
     if (process.browser) {
-      // this.liveExamId=this.$route.params.live_exam_id;
-      this.liveExamObj = this.$auth.$storage.getUniversal(
-        'Live_Exam_Info_Object'
-      )
-      const uData = this.$auth.$storage.getUniversal('USER_DATA')
-      this.userId = uData.id
-      const idparam = this.$route.params.live_exam_id
-      const vals = idparam.split('_')
-
-      if (vals[0] === 'LE') {
-        this.liveExamObj = this.$auth.$storage.getUniversal(
-          'Live_Exam_Info_Object'
-        )
-        if (vals[1] === 'LIVE') {
           this.createExamData()
           this.calculateResult()
           this.getUserAnalytics()
-        } else if (vals[1] === 'REVIEW') {
-          this.createExamDataByLiveExamReviewAPI(vals[2], this.userId)
-        }
-      } else if (vals[0] === 'NE') {
-        if (vals[1] === 'LIVE') {
-        } else if (vals[1] === 'REVIEW') {
-        }
-      }
-
-      // if (this.$route.query.type === 'review') {
-      //   this.ansArray = JSON.parse(this.$route.query.data)
-      //   var url = 'exams/' + this.$route.query.examId
-      //   this.getExanById(url, 'Not able to get Exam.')
-      //   this.openFeedback = false
-      // } else {
-      // }
     }
   },
-
-  mounted() {},
   methods: {
+
     createExamData() {
       this.ansArray = this.$auth.$storage.getUniversal('ANS_STR')
       this.exam = this.$auth.$storage.getUniversal('EXAM_DATA')
@@ -387,7 +338,7 @@ export default {
     explation(index) {
       const id = 'explation-div-' + (index + 1)
       const x = document.getElementById(id)
-      if (x.style.display === 'none') {
+      if (x.style.display == 'none') {
         x.style.display = 'block'
       } else {
         x.style.display = 'none'
@@ -396,11 +347,11 @@ export default {
 
     correctAns(question) {
       const correctAns = question.ans
-      if (correctAns === 0) {
+      if (correctAns == 0) {
         return question.options.opt1
-      } else if (correctAns === 1) {
+      } else if (correctAns == 1) {
         return question.options.opt2
-      } else if (correctAns === 2) {
+      } else if (correctAns == 2) {
         return question.options.opt3
       } else {
         return question.options.opt4
@@ -409,13 +360,13 @@ export default {
 
     userAns(index, question) {
       const userAns = this.ansArray[index].ans
-      if (userAns === 'opt1') {
+      if (userAns == 'opt1') {
         return question.options.opt1
-      } else if (userAns === 'opt2') {
+      } else if (userAns == 'opt2') {
         return question.options.opt2
-      } else if (userAns === 'opt3') {
+      } else if (userAns == 'opt3') {
         return question.options.opt3
-      } else if (userAns === 'opt4') {
+      } else if (userAns == 'opt4') {
         return question.options.opt4
       } else {
         return 'No Answer'
@@ -431,19 +382,19 @@ export default {
       let totalMarks = 0
       let wrongAnswer = 0
       let negativeMarks = 0
-
       for (let i = 0; i < this.exam.sections.length; i++) {
         const section = this.exam.sections[i]
         for (let j = 0; j < section.totalQuestion; j++) {
           const question = section.questions[j]
+          
           const ansObj = this.ansArray[ansIndx]
 
-          if (ansObj.status === 0) {
+          if (ansObj.status == 0) {
             notAttempted++
-          } else if (ansObj.status === 1) {
+          } else if (ansObj.status == 1) {
             notAnswered++
-          } else if (ansObj.status === 3) {
-            if (ansObj.ans === this.getAns(question.ans)) {
+          } else if (ansObj.status == 3) {
+            if (ansObj.ans == this.getAns(question.ans)) {           
               correctAnswer++
               totalMarks = totalMarks + section.markPerQution
             } else {
@@ -454,6 +405,7 @@ export default {
         }
         negativeMarks = negativeMarks + section.negativeMarkPerQun * wrongAnswer
       }
+      console.log(correctAnswer+" correctAnswer")
       this.correctAnswer = correctAnswer
       this.notAttempted = notAttempted
       this.notAnswered = notAnswered
@@ -464,45 +416,30 @@ export default {
     },
 
     getAns(ansIndex) {
-      if (ansIndex === 0) {
+      if (ansIndex == 0) {
         return 'opt1'
-      } else if (ansIndex === 1) {
+      } else if (ansIndex == 1) {
         return 'opt2'
-      } else if (ansIndex === 2) {
+      } else if (ansIndex == 2) {
         return 'opt3'
       }
-      if (ansIndex === 3) {
+      if (ansIndex == 3) {
         return 'opt4'
       }
     },
 
-    getExanById(url, errMgs) {
-      http
-        .get(url)
-        .then((response) => {
-          this.exam = response.data
-          this.calculateResult(this.exam)
-          this.getUserAnalytics()
-        })
-        .catch((e) => {
-          return this.displayAlert(true, 'danger', errMgs)
-          console.log(e)
-        })
-    },
-
     review(reviewValue) {
-      if (reviewValue === 'ALL') {
+      if (reviewValue == 'ALL') {
         this.showAllAns = true
         this.reviewValue = 'ALL'
       } else {
         this.showAllAns = false
       }
-
-      if (reviewValue === 'WRONG_ANSWER') {
+      if (reviewValue == 'WRONG_ANSWER') {
         this.reviewValue = 'WRONG_ANSWER'
-      } else if (reviewValue === 'No Answer') {
+      } else if (reviewValue == 'No Answer') {
         this.reviewValue = 'No Answer'
-      } else if (reviewValue === 'CORRECT_ANSWER') {
+      } else if (reviewValue == 'CORRECT_ANSWER') {
         this.reviewValue = 'CORRECT_ANSWER'
       }
     },
@@ -511,9 +448,9 @@ export default {
       const userAns = this.userAns(index, question)
       const correctAns = this.correctAns(question)
 
-      if (userAns === correctAns) {
+      if (userAns == correctAns) {
         return 'CORRECT_ANSWER'
-      } else if (userAns === 'No Answer') {
+      } else if (userAns == 'No Answer') {
         return 'No Answer'
       } else {
         return 'WRONG_ANSWER'
@@ -522,12 +459,12 @@ export default {
 
     getReviewTitle() {
       this.sectionScroll()
-      if (this.reviewValue === 'WRONG_ANSWER') {
+      if (this.reviewValue == 'WRONG_ANSWER') {
         return 'Displaying  Wrong Answer'
-      } else if (this.reviewValue === 'No Answer') {
+      } else if (this.reviewValue == 'No Answer') {
         return 'Not Answered And Not Attempted'
-      } else if (this.reviewValue === 'CORRECT_ANSWER') {
-        if (this.correctAnswer === 0) {
+      } else if (this.reviewValue == 'CORRECT_ANSWER') {
+        if (this.correctAnswer == 0) {
           return 'NO Correct Answer found !'
         } else {
           return 'Displaying  Correct Answer'
@@ -536,22 +473,9 @@ export default {
       return 'Displaying All Answer'
     },
 
-    updateExamResult() {
-      http
-        .get(url)
-        .then((response) => {
-          this.exam = response.data
-          this.calculateResult()
-        })
-        .catch((e) => {
-          return this.displayAlert(true, 'danger', errMgs)
-          console.log(e)
-        })
-    },
-
     sectionScroll() {
       if (window.matchMedia('(max-width: 480px)').matches) {
-        window.scrollTo(0, 800)
+        window.scrollTo(0, 200)
       } else {
         window.scrollTo(0, 200)
       }
@@ -565,7 +489,6 @@ export default {
         Incorrect: this.wrongAnswer,
         'Not Attempted': this.notAttempted
       }
-
       this.chartData = {
         labels: Object.keys(graphData), // ['Inactive User', 'Active User', 'Blacked User'],
         datasets: [
@@ -577,53 +500,11 @@ export default {
       }
       this.loaded = true
     },
-
-    goTOLeaderBoard() {
-      this.$router.push('/leaderboard/' + this.liveExamId)
-    },
-
-    convertResultTime(time24) {
-      if (process.browser) {
-        let hours = time24.substr(0, 2)
-        const AmOrPm = hours >= 12 ? 'pm' : 'am'
-        hours = hours % 12 || 12
-        const finalTime = hours + ' ' + AmOrPm
-        return finalTime
-      }
-    },
-
-    createExamDataByLiveExamReviewAPI(liveExamId, resultId) {
-      // this.ansArray = JSON.parse(this.$route.query.data);
-
-      this.$axios
-        .get(
-          '/user/live-exam-review/' +
-            liveExamId +
-            '?access_token=' +
-            this.getToken(),
-          { headers: { user: this.userId } }
-        )
-        .then((response) => {
-          //  this.exam = response.data;
-          // this.calculateResult(this.exam);
-          // this.getUserAnalytics();
-          console.log(response.data)
-        })
-        .catch((e) => {
-          this.$errorHandler('server', e)
-        })
-    },
-
-    getToken() {
-      let token = this.$auth.getToken('local')
-      token = token.replace('Bearer ', '')
-      return token
-    }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .fade-enter-active {
   transition: all 0.3s ease;
 }
@@ -683,8 +564,81 @@ export default {
   margin-bottom: 10px;
 }
 
+.resultsContainer {
+  background: #007bff;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  flex-direction: column;
 
+  .titleBox,
+  .announcementBox {
+    color: #fff;
+    text-align: center;
+  }
 
+  .resultsBox {
+    width: 33.333%;
+    padding: 1rem;
+
+    &:first-child {
+      margin-left: 5%;
+    }
+
+    &:last-child {
+      margin-right: 5%;
+    }
+
+    & > div {
+      padding: 1rem;
+      background: #fff;
+      height: 100%;
+      border-radius: 0.625rem;
+
+      h3 {
+        font-weight: bold;
+      }
+    }
+
+    .detailsBox {
+      display: inline-block;
+      width: 100%;
+
+      & > div {
+        width: 50%;
+        float: left;
+      }
+    }
+  }
+}
+.result-div{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    font-weight: bold;
+    border: solid;
+    border-color: green;
+    font-size: 100%;
+   
+  }
+  .answers1 {
+  border-radius: 0;
+  background-color: #fff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.18);
+  border-bottom: 1px solid #e0e0e0;
+  padding: 0.75rem;
+  margin-bottom: 0.625rem;
+    list-style: none;
+    list-style-position: inside;
+}
+.answers1 span {
+  width: 100%;
+   font-weight: bold;
+   font-size: 115%;
+}
+
+.answers1 label {
+  display: flex;
+  align-items: center;
+}
 @media screen and (max-width: 480px) {
   .category-buttons {
     flex-wrap: wrap;
@@ -704,5 +658,26 @@ export default {
     padding-right: 6px;
     padding-left: 6px;
   }
+
+  .resultInfo{
+    font-size:120%;
+
+  }
+}
+
+@media only screen and (min-width: 640px) {
+.result-div{
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    font-weight: bold;
+    border: solid;
+    border-color: green; 
+    font-size: 17px; 
+  }
+.result-div .row:hover {
+  background-color: #40c68e;
+}
 }
 </style>
