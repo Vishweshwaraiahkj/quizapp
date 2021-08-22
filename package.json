@@ -31,7 +31,7 @@
     "@nuxtjs/pwa": "^3.3.5",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
-    "core-js": "^3.15.1",
+    "core-js": "^3.16.0",
     "defu": "^5.0.0",
     "nuxt": "^2.15.7",
     "vue-facebook-login-component": "^4.0.2"
