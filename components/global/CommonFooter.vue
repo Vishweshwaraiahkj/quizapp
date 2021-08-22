@@ -4,9 +4,9 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-3 col-md-6 footer-info">
-            <h3>QuizApp</h3>
+            <h3>MyExamAim</h3>
             <p>
-              QuizApp provides the best-in-class mock exams for PSI, FDA, SDA,
+              MyExamAim provides the best-in-class mock exams for PSI, FDA, SDA,
               Excise sub inspector and other competitive exams, If your ready to
               achieve your goal, then we are the platform.
             </p>
@@ -38,7 +38,7 @@
           <div class="col-lg-3 col-md-6 footer-contact">
             <h4>Contact Us</h4>
             <p>
-              QuizApp
+              MyExamAim
               <br />
               4th Floor
               <br />
@@ -48,11 +48,9 @@
               <br />
               Bengaluru 560004
               <br />
-              <strong>Phone:</strong>
-              +91-7353333573
-              <br />
+             
               <strong>Email:</strong>
-              quizapp@gmail.com
+              myexamaim.info@gmail.com
               <br />
             </p>
           </div>
@@ -60,7 +58,7 @@
           <div class="col-lg-3 col-md-6 footer-newsletter">
             <h4>Our Newsletter</h4>
             <p>
-              Please contact +91-7353333573 to recieve our newsletters, offers
+              Please contact myexamaim.info@gmail.com to recieve our newsletters, offers
               and updates
             </p>
           </div>
@@ -71,12 +69,12 @@
     <div class="container">
       <div class="copyright">
         © Copyright
-        <strong>QuizApp</strong>
+        <strong>MyExamAim</strong>
         . All Rights Reserved
       </div>
       <div class="credits">
         Designed by
-        <a href="javascript:void(0);">Masters</a>
+        <a href="javascript:void(0);">MV Developers</a>
       </div>
     </div>
   </footer>
