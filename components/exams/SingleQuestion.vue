@@ -3,18 +3,14 @@
     <h4 :id="'question_' + currentQuestion.qunId" class="question">
       <span v-html="currentQuestion.qun"></span>
     </h4>
-
     <br />
     <b-list-group>
       <b-list-group-item
         v-for="(answer, key, index) in currentQuestion.options"
         :id="'answer_' + currentQuestion.qunId + '_' + key"
-        :key="index"
-        class="answers"
-        @click="sendAns($event)"
-      >
+        :key="index" class="answers" @click="sendAns($event)">
         <b-form-radio v-model="selected" name="some-radios" :value="key">
-          <span v-html="answer"></span>
+          <span class="ans-span" v-html="answer" ></span>
         </b-form-radio>
       </b-list-group-item>
     </b-list-group>
@@ -31,7 +27,6 @@ export default {
     }
   },
   data: () => ({
-    isActive: true,
     selected: undefined
   }),
 
@@ -71,9 +66,7 @@ export default {
   list-style: upper-alpha;
   list-style-position: inside;
 }
-.answers:hover {
-  background: cornflowerblue;
-}
+
 .answers .custom-radio {
   display: inline-flex;
 }
@@ -82,6 +75,15 @@ export default {
   align-items: center;
 }
 .answers span {
-  width: auto;
+  width: 100%;
+   font-weight: bold;
+   font-size: 115%;
+}
+.ans-span:hover{
+    color:cornflowerblue;
+    text-decoration:underline;
+    font-size:18px;
+    cursor: pointer;
+    
 }
 </style>

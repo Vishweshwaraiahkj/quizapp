@@ -6,11 +6,7 @@
         <b-btn pill variant="outline-light" class="d-flex back_to_home_btn">
           <nuxt-link to="/">Back to Home</nuxt-link>
         </b-btn>
-        <header>
-          <img
-            src="https://assets.codepen.io/3931482/internal/avatars/users/default.png?format=auto&height=80&version=1592223909&width=80"
-          />
-        </header>
+        
         <div class="inputs">
           <b-form-group
             v-if="isRegister"
@@ -30,8 +26,7 @@
             label-for="input-1"
             :description="
               isRegister ? 'Email doesnt exists, please register!' : ''
-            "
-          >
+            ">
             <b-form-input
               id="input-1"
               v-model="form.email"
@@ -65,6 +60,7 @@
           No account, then register here!
         </a>
         <a v-else @click="register(false)">Already Registered? Login here!</a>
+       <!--
         <ClientOnly>
           <VFacebookLogin
             v-model="model"
@@ -77,6 +73,7 @@
             @click="fbClick"
           ></VFacebookLogin>
         </ClientOnly>
+        -->
       </footer>
     </b-form>
   </div>
@@ -203,7 +200,7 @@ export default {
   background-color: #fff;
   height: 80vh;
   width: 30%;
-  min-height: 500px;
+  min-height: 100px;
   min-width: 350px;
   margin: 0 auto 2em auto;
   border-radius: 5px;
