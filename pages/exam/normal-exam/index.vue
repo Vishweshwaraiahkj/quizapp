@@ -1,6 +1,6 @@
 <template>
   <div class="examStarted">
-     <StartNormalExam :exam-id="examId" @go-to-normal-result-page="goToNormalResultPage()" />
+     <StartNormalExam :exam-id="parseInt(examId)" @go-to-normal-result-page="goToNormalResultPage()" />
   </div>
 </template>
 
@@ -14,7 +14,7 @@ export default {
   },
 
   data: () => ({
-   examId:"",
+   examId:0,
   }),
 
   methods: {

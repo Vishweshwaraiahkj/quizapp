@@ -9,12 +9,12 @@
         </span>
      </b-card>
      </nuxt-link>
-    <div v-for="(section,index) in sections"> 
+    <div v-for="(section,index) in sections" :key="index"> 
         <div class="my-title">
           <h2>{{section.title}}</h2>
         </div>
         <div class="box-stly">
-          <b-card  v-for="data in section.dataObjs">
+          <b-card  v-for="(data, idx) in section.dataObjs" :key="idx">
             <b-row>
               <b-col align-self="center">
                {{data.name}}
