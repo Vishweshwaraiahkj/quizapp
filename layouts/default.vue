@@ -2,8 +2,9 @@
   <div>
     <NavBarComponent v-if="$nuxt.$route.path !== '/login'" />
     <Nuxt />
-     <b-row>
-        <div class="w-100">
+    <CommentsBox />
+    <b-row>
+      <div class="w-100">
         <b-jumbotron header-level="5">
           <template #lead>
             You can get here all previous year karnataka police constable
@@ -48,10 +49,12 @@
 <script>
 import NavBarComponent from '@/components/global/NavBarComponent'
 import CommonFooter from '@/components/global/CommonFooter'
+import CommentsBox from '@/components/global/CommentsBox.vue'
 export default {
   components: {
     NavBarComponent,
-    CommonFooter
+    CommonFooter,
+    CommentsBox
   }
 }
 </script>
